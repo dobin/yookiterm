@@ -1,0 +1,70 @@
+/* app css stylesheet */
+
+.menu {
+  list-style: none;
+  border-bottom: 0.1em solid black;
+  margin-bottom: 2em;
+  padding: 0 0 0.5em;
+}
+
+.menu:before {
+  content: "[";
+}
+
+.menu:after {
+  content: "]";
+}
+
+.menu > li {
+  display: inline;
+}
+
+.menu > li:before {
+  content: "|";
+  padding-right: 0.3em;
+}
+
+.menu > li:nth-child(1):before {
+  content: "";
+  padding: 0;
+}
+
+
+.horizontal-line {
+  border: 1px solid white;
+}
+
+
+body, html {
+  margin: 0;
+  overflow: hidden;
+  height:100%;
+}
+
+@media (min-width: 768px){
+  #left {
+    position: absolute;
+    top: 30px;
+    bottom: 10px;
+    left: 0;
+    width: 50%;
+    overflow-y: scroll;
+  }
+
+  #right {
+    position: absolute;
+    top: 30px;
+    bottom: 10px;
+    right: 0;
+    overflow-y: scroll;
+    width: 50%;
+  }
+}
+
+#left {
+  height:97%;
+}
+
+#right {
+  height:97%;
+}

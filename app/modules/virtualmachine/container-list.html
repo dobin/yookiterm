@@ -1,0 +1,30 @@
+Basecontainer:
+<div class="row" ng-repeat="baseContainer in baseContainers">
+  <div class="col-md-1">Address: </div>
+  <div class="col-md-11">{{baseContainer.Name}}</div>
+</div>
+
+
+<p></p>
+
+<table class="table table-condensed">
+	<thead>
+	  <th>containerBasename</th>
+	  <th>containerName</th>
+	  <th>expiry</th>
+	  <th>username</th>
+    <th>password</th>
+		<th>status</th>
+		<th>Action</th>
+  </thead>
+
+	<tr ng-repeat="container in containers">
+	  <td>{{container.containerBaseName}} </td>
+	  <td>{{container.containerName}}</td>
+		<td>{{container.expiry }}</td>
+		<td>{{container.username}}</td>
+		<td>{{container.password}}</td>
+		<td>{{container.status}}</td>
+		<td><a ng-click="startVirtualmachine()">Start VM</a> </td>
+	</tr>
+</table>

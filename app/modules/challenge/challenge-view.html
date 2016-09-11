@@ -1,0 +1,45 @@
+
+<div class="container-fluid">
+    <div class="row">
+
+        <div class="col-md-6" id="left">
+          <div class="row">
+            <div class="col-md-4">
+              <button class="btn btn-primary btn-xs" type="button" ng-click="getTerminal()" ng-show="showAddTerminalButton">Add Terminal</button>
+              <button class="btn btn-primary btn-xs" type="button" ng-click="closeTab()">Close Tab</button>
+            </div>
+            <div class="col-md-7">
+
+            </div>
+            <div class="col-md-1">
+              <spinner name="booksSpinner" img-src="components/spinner.gif"></spinner>
+            </div>
+					</div>
+
+          <div class="row horizontal-line" ng-repeat="terminal in terminals">
+            <div class="col-md-12">
+              <button class="btn btn-primary btn-xs" type="button" ng-click="incSize(terminal)">+</button>
+              <button class="btn btn-primary btn-xs" type="button" ng-click="decSize(terminal)">-</button>
+              <button class="btn btn-primary btn-xs" type="button" ng-click="reload(terminal)">Reload</button>
+            </div>
+
+            <div class="col-md-12">
+            <div id="{{'console' + terminal.id}}" style="background-color:black;"></div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="col-md-6" id="right">
+					<div class="row">
+						<a ng-click="close()">Close this tab</a>
+						|
+						<a ng-click="switch()">Flip tab</a>
+					</div>
+
+          <div class="row">
+				    <div mymarkdown ng-bind-html="challenge.inputHtml" class="preview"></div>
+          </div>
+        </div>
+    </div>
+</div>
