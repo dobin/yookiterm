@@ -6,7 +6,7 @@ angular.module('myApp.virtualmachine')
             var obj = {};
 
             obj.getBaseContainerList = function() {
-              var url = SettingServices.getLxdApiUrl() + "/baseContainers";
+              var url = SettingServices.getSrvApiUrl() + "/baseContainers";
               return $http.get(url);
             }
 
@@ -43,13 +43,13 @@ angular.module('myApp.virtualmachine')
               });
             }
 
-
-            obj.startContainerIfNecessary = function(containerBaseName) {
+            // Public
+            obj.startContainerIfNecessary = function(containerHost, containerBaseName) {
               var url = SettingServices.getLxdApiUrl() + "/container/" + containerBaseName + "/start";
               return $http.get(url);
             }
 
-
+            // Public
             obj.getTerminal = function(initialTermHeight) {
               var term = new Terminal({
                   cols: 80, // sane default
@@ -62,8 +62,8 @@ angular.module('myApp.virtualmachine')
               return term;
             }
 
-
-            obj.getWebsocketTerminal = function(term, containerBaseName, width, height) {
+            // Public
+            obj.getWebsocketTerminal = function(term, containerHost, containerBaseName, width, height) {
               var wssurl = SettingServices.getLxdWsUrl()
                 + "/container/"
                 + containerBaseName

@@ -1,13 +1,24 @@
-
-Login:
-<a ng-click="login()">Login</a>
-
-<p></p>
-<p></p>
-
-List of challenges:
-
-<ul>
-	<li> <a ng-href="#/challenge/1">Challenge 1</a></li>
-	<li> <a ng-href="#/challenge/2">Challenge 2</a></li>
-</ul>
+<table class="table table-condensed">
+	<thead>
+		<th>ID</th>
+		<th>Title</th>
+		<th>Arch</th>
+		<th>ASLR</th>
+	</thead>
+	<tr ng-repeat="challenge in challenges">
+		<td>
+			{{challenge.Id}}
+		</td>
+		<td>
+			<a ng-href="#/challenge/{{challenge.Id}}">
+				{{challenge.Title}}
+			</a>
+		</td>
+		<td>
+			{{challenge.ContainerArch}}
+		</td>
+		<td>
+			{{challenge.ContainerAslr}}
+		</td>
+	</tr>
+</table>

@@ -8,10 +8,11 @@ angular.module('myApp', [
   'myApp.version',
   'myApp.challenge',
   'myApp.virtualmachine',
-  'myApp.setting'
-]).
+  'myApp.setting',
+  'myApp.authentication'
+])
 
-config(['$locationProvider', '$routeProvider', 'hljsServiceProvider',
+.config(['$locationProvider', '$routeProvider', 'hljsServiceProvider',
 function($locationProvider, $routeProvider, hljsServiceProvider) {
   //$locationProvider.hashPrefix('!');
 
@@ -23,4 +24,9 @@ function($locationProvider, $routeProvider, hljsServiceProvider) {
   hljs.initHighlighting();
 
   $routeProvider.otherwise({redirectTo: '/challenges'});
-}]);
+}])
+
+.run(function($rootScope, AuthenticationServices) {
+  AuthenticationServices.useToken();
+})
+;

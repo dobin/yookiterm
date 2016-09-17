@@ -7,7 +7,9 @@ angular.module('myApp.challenge', ['ngRoute', 'ngSanitize', 'hljs'])
             templateUrl: 'modules/challenge/challenge-list.html',
             controller: 'challengeListCtrl',
             resolve: {
-
+              challenges: function(ChallengeServices) {
+                return ChallengeServices.getChallenges();
+              }
             }
         })
         .when('/challenge/:challengeId', {
@@ -24,10 +26,10 @@ angular.module('myApp.challenge', ['ngRoute', 'ngSanitize', 'hljs'])
     }])
 
 
-    .controller('challengeListCtrl', function ($scope, $routeParams, $filter, $location, $route, $interval
-                )
+    .controller('challengeListCtrl', function ($scope, $routeParams, $filter, $location, $route, $interval,
+                challenges)
     {
-
+      $scope.challenges = challenges.data;
    	})
 
 
@@ -70,12 +72,14 @@ angular.module('myApp.challenge', ['ngRoute', 'ngSanitize', 'hljs'])
 
       // Create a div to insert the term on
       // later with term.open
+      // I just hope the page has been rendered until then...
       var idx = $scope.terminals.push(t);
 
       spinnerService.show('booksSpinner');
       $scope.showAddTerminalButton = false;
 
-      VirtualmachineServices.startContainerIfNecessary(challenge.ContainerBaseName).then(function(data) {
+
+      VirtualmachineServices.startContainerIfNecessary(challenge.ContainerHost, challenge.ContainerBaseName).then(function(data) {
         $scope.terminals[idx-1].term = VirtualmachineServices.getTerminal(t.height);
         $scope.terminals[idx-1].term.open(document.getElementById('console' + terminalCount));
         var initialGeometry = $scope.terminals[idx-1].term.proposeGeometry(),
@@ -83,7 +87,14 @@ angular.module('myApp.challenge', ['ngRoute', 'ngSanitize', 'hljs'])
             rows = initialGeometry.rows;
         $scope.terminals[idx-1].width = cols;
 
-        VirtualmachineServices.getWebsocketTerminal(t.term, challenge.ContainerBaseName, cols, rows);
+        console.log("Cols: " + cols + "  Rows: " + rows);
+
+        VirtualmachineServices.getWebsocketTerminal(t.term, challenge.ContainerHost, challenge.ContainerBaseName, cols, rows);
+
+
+        $scope.terminals[idx-1].term.on('destroy', function (size) {
+          console.log("DDDDDDDDDDDD");
+        });
 
         $scope.terminals[idx-1].term.on('resize', function (size) {
           //console.log("Resize: C: " + size.cols + " R: " + size.rows);
@@ -101,6 +112,7 @@ angular.module('myApp.challenge', ['ngRoute', 'ngSanitize', 'hljs'])
           fetch(url, {method: 'POST'});*/
         });
       }).finally(function () {
+        $scope.terminals[idx-1].term.fit();
         spinnerService.hide('booksSpinner');
         $scope.showAddTerminalButton = true;
       })

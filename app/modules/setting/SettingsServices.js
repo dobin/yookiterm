@@ -12,6 +12,7 @@ angular.module('myApp.setting')
                 // this is the default config
                 cfg = {
                   lxdurl: 'localhost:8080',
+                  srvurl: 'localhost:8090',
                   userId: 'dobin',
                 }
 
@@ -31,6 +32,15 @@ angular.module('myApp.setting')
             }
 
 
+            obj.getSrvUrl = function() {
+              return 'http://' + obj.getMyCfg().srvurl;
+            }
+
+            obj.getSrvApiUrl = function() {
+              return 'http://' + obj.getMyCfg().srvurl + '/1.0';
+            }
+
+
             obj.getLxdUrl = function() {
               return 'http://' + obj.getMyCfg().lxdurl;
             }
@@ -44,18 +54,6 @@ angular.module('myApp.setting')
             }
 
 
-            obj.testLxd = function() {
-              return $http.get(obj.getLxdApiUrl());
-            }
-
-            obj.testLxdAuth = function() {
-              return $http.get(obj.getLxdApiUrl() + '/certificates');
-            }
-
-
-            obj.getConfig = function() {
-                return $http.get(obj.getLxdUrl() + '/1.0');
-            }
 
             return obj;
         }])
