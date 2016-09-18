@@ -1,12 +1,18 @@
 'use strict';
 
 angular.module('myApp.virtualmachine')
-    .factory('VirtualmachineServices', ['$http', '$q', '$timeout', 'SettingServices',
-        function ($http, $q, $timeout, SettingServices) {
+    .factory('VirtualmachineServices', ['$http', '$q', '$timeout', 'SettingServices', 'AuthenticationServices',
+        function ($http, $q, $timeout, SettingServices, AuthenticationServices) {
             var obj = {};
 
             obj.getBaseContainerList = function() {
               var url = SettingServices.getSrvApiUrl() + "/baseContainers";
+              return $http.get(url);
+            }
+
+
+            obj.getContainerHostList = function() {
+              var url = SettingServices.getSrvApiUrl() + "/containerHosts";
               return $http.get(url);
             }
 
@@ -25,13 +31,10 @@ angular.module('myApp.virtualmachine')
 
                   for(var n=0; n<data.length; n++) {
                     var i = data[n];
-  //                  console.log("B: " + JSON.stringify(i));
                     ret.push(data[n]);
                   }
 
-                  //console.log("A" + JSON.stringify(data));
                   return ret;
-                  //return data;
                 });
               })
             }
@@ -43,10 +46,20 @@ angular.module('myApp.virtualmachine')
               });
             }
 
+            obj.getHostnameForAlias = function(containerHostAlias) {
+              var containerHostsUrl = SettingServices.getSrvApiUrl() + "/containerHosts";
+              return $http.get(containerHostsUrl);
+            }
+
             // Public
-            obj.startContainerIfNecessary = function(containerHost, containerBaseName) {
-              var url = SettingServices.getLxdApiUrl() + "/container/" + containerBaseName + "/start";
-              return $http.get(url);
+            obj.startContainerIfNecessary = function(containerHostAlias, containerBaseName) {
+              return obj.getHostnameForAlias(containerHostAlias).then(function(data) {
+                var containerHosts = data.data;
+                var containerHost = _.findWhere(containerHosts, { HostnameAlias: containerHostAlias})
+
+                var url = "http://" + containerHost.Hostname + "/1.0/container/" + containerBaseName + "/start";
+                return $http.get(url);
+              });
             }
 
             // Public
@@ -63,44 +76,53 @@ angular.module('myApp.virtualmachine')
             }
 
             // Public
-            obj.getWebsocketTerminal = function(term, containerHost, containerBaseName, width, height) {
-              var wssurl = SettingServices.getLxdWsUrl()
-                + "/container/"
-                + containerBaseName
-                + "/console"
-                + "?width=" + width
-                + "&height=" + height;
-              var sock = new WebSocket(wssurl);
+            obj.getWebsocketTerminal = function(term, containerHostAlias, containerBaseName, width, height) {
+              return obj.getHostnameForAlias(containerHostAlias).then(function(data) {
+                var containerHosts = data.data;
 
-              term.on('data', function (data) {
-                  sock.send(data);
-                  //sock.send(new Blob([data]));
-              });
+                var containerHost = _.findWhere(containerHosts, { HostnameAlias: containerHostAlias})
+
+                var wssurl = "ws://"
+                  + containerHost.Hostname
+                  + "/1.0/container/"
+                  + containerBaseName
+                  + "/console"
+                  + "?width=" + width
+                  + "&height=" + height
+                  + "&token=" + AuthenticationServices.getToken();
+                var sock = new WebSocket(wssurl);
+
+                term.on('data', function (data) {
+                    sock.send(data);
+                    //sock.send(new Blob([data]));
+                });
 
 
-              sock.onopen = function (e) {
-                 sock.onmessage = function (msg) {
-                   //msg.data = atob(msg.data);
-                   var d = atob(msg.data);
-                     //if (msg.data instanceof Blob) {
-                     //    var reader = new FileReader();
-                     //    reader.addEventListener('loadend', function () {
-                     //        term.write(reader.result);
-                     //    });
-                     //    reader.readAsBinaryString(msg.data);
-                     //} else {
-                         term.write(d);
-                     //}
-                 };
+                sock.onopen = function (e) {
+                   sock.onmessage = function (msg) {
+                     //msg.data = atob(msg.data);
+                     var d = atob(msg.data);
+                       //if (msg.data instanceof Blob) {
+                       //    var reader = new FileReader();
+                       //    reader.addEventListener('loadend', function () {
+                       //        term.write(reader.result);
+                       //    });
+                       //    reader.readAsBinaryString(msg.data);
+                       //} else {
+                           term.write(d);
+                       //}
+                   };
 
-                 sock.onclose = function (msg) {
-                     console.log('WebSocket closed');
-                     term.destroy();
-                 };
-                 sock.onerror = function (err) {
-                     console.error(err);
-                 };
-             };
+                   sock.onclose = function (msg) {
+                       console.log('WebSocket closed');
+                       term.destroy();
+                   };
+                   sock.onerror = function (err) {
+                       console.error(err);
+                   };
+               };
+          });
+
           }
 
 					return obj;

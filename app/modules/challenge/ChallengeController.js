@@ -78,8 +78,7 @@ angular.module('myApp.challenge', ['ngRoute', 'ngSanitize', 'hljs'])
       spinnerService.show('booksSpinner');
       $scope.showAddTerminalButton = false;
 
-
-      VirtualmachineServices.startContainerIfNecessary(challenge.ContainerHost, challenge.ContainerBaseName).then(function(data) {
+      VirtualmachineServices.startContainerIfNecessary(challenge.ContainerHostAlias, challenge.ContainerBaseName).then(function(data) {
         $scope.terminals[idx-1].term = VirtualmachineServices.getTerminal(t.height);
         $scope.terminals[idx-1].term.open(document.getElementById('console' + terminalCount));
         var initialGeometry = $scope.terminals[idx-1].term.proposeGeometry(),
@@ -87,10 +86,7 @@ angular.module('myApp.challenge', ['ngRoute', 'ngSanitize', 'hljs'])
             rows = initialGeometry.rows;
         $scope.terminals[idx-1].width = cols;
 
-        console.log("Cols: " + cols + "  Rows: " + rows);
-
-        VirtualmachineServices.getWebsocketTerminal(t.term, challenge.ContainerHost, challenge.ContainerBaseName, cols, rows);
-
+        VirtualmachineServices.getWebsocketTerminal(t.term, challenge.ContainerHostAlias, challenge.ContainerBaseName, cols, rows);
 
         $scope.terminals[idx-1].term.on('destroy', function (size) {
           console.log("DDDDDDDDDDDD");
