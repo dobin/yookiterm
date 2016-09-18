@@ -6,7 +6,7 @@ angular.module('myApp.authentication')
             var obj = {};
 
             obj.login = function(username, password) {
-              return $http.post(SettingServices.getSrvUrl() + '/get-token', {
+              return $http.post(SettingServices.getSrvUrl() + '/1.0/get-token', {
                   UserId: username,
                   Password: password
                 })
