@@ -11,7 +11,7 @@ angular.module('myApp.authentication', ['ngRoute'])
     }])
 
 
-    .controller('authenticationPageCtrl', function ($scope, $routeParams, $filter, $location,
+    .controller('authenticationPageCtrl', function ($scope, $window, $routeParams, $filter, $location,
                                                  AuthenticationServices)
 		 {
        $scope.error = "";
@@ -30,6 +30,8 @@ angular.module('myApp.authentication', ['ngRoute'])
               $scope.loading = false;
               AuthenticationServices.saveToken(data.data.token);
               $scope.error = "Authentication successful"
+
+              $window.location.reload();
            } else {
               $scope.error = 'Username or password is incorrect';
               $scope.loading = false;

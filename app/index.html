@@ -19,12 +19,17 @@
 </head>
 <body>
 
-  <ul class="menu">
-    <li><a href="#/challenges">Index</a></li>
-    <li><a href="#/challenges">Challenges</a></li>
-    <li><a href="#/container">Container</a></li>
-    <li><a href="#/authentication/login">Login</a></li>
-  </ul>
+  <div ng-controller="menuCtrl">
+    <ul class="menu">
+      <li><a href="#/staticpages/index">Index</a></li>
+      <li><a ng-if="isAuthenticated" href="#/challenges">Challenges</a></li>
+      <li><a ng-if="isAuthenticated" href="#/container">Container</a></li>
+      <li>
+        <a ng-if="! isAuthenticated" href="#/authentication/login">Login</a>
+        <span ng-if="isAuthenticated" ng-bind="loggedinUser"></span>
+      </li>
+    </ul>
+  </div>
 
   <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
@@ -35,7 +40,7 @@
   <script src="components/terminal/xterm.js"></script>
   <script src="components/terminal/xterm-addon-fit.js"></script>
 
-  <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/angular/angular.min.js"></script>
   <script src="bower_components/angular-route/angular-route.js"></script>
   <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
   <script src="bower_components/underscore/underscore-min.js"></script>
@@ -49,10 +54,10 @@
   <script src="bower_components/angular-highlightjs/build/angular-highlightjs.min.js"></script>
 
   <script src="app.js"></script>
+
+  <script src="modules/staticpages/StaticpagesController.js"></script>
   <script src="modules/authentication/AuthenticationController.js"></script>
   <script src="modules/authentication/AuthenticationServices.js"></script>
-
-
   <script src="modules/setting/SettingsController.js"></script>
   <script src="modules/setting/SettingsServices.js"></script>
   <script src="modules/challenge/ChallengeController.js"></script>

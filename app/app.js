@@ -1,6 +1,5 @@
 'use strict';
 
-// Declare app level module which depends on views, and components
 angular.module('myApp', [
   'ngRoute',
   'hljs',
@@ -9,13 +8,13 @@ angular.module('myApp', [
   'myApp.challenge',
   'myApp.virtualmachine',
   'myApp.setting',
-  'myApp.authentication'
+  'myApp.authentication',
+  'myApp.staticpages'
 ])
+
 
 .config(['$locationProvider', '$routeProvider', 'hljsServiceProvider',
 function($locationProvider, $routeProvider, hljsServiceProvider) {
-  //$locationProvider.hashPrefix('!');
-
   hljsServiceProvider.setOptions({
     // replace tab with 4 spaces
     tabReplace: '    '
@@ -23,10 +22,24 @@ function($locationProvider, $routeProvider, hljsServiceProvider) {
 
   hljs.initHighlighting();
 
-  $routeProvider.otherwise({redirectTo: '/challenges'});
+  $routeProvider.otherwise({redirectTo: '/staticpages/index'});
 }])
+
 
 .run(function($rootScope, AuthenticationServices) {
   AuthenticationServices.useToken();
 })
+
+
+.controller('menuCtrl', function($scope, AuthenticationServices) {
+  $scope.isAuthenticated = false;
+
+  if (AuthenticationServices.isAuthenticated()) {
+    $scope.isAuthenticated = true;
+
+    var token = AuthenticationServices.parseJwt(AuthenticationServices.getToken());
+    $scope.loggedinUser = token.userId;
+  }
+})
+
 ;
