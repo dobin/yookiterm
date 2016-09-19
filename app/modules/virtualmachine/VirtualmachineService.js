@@ -57,7 +57,7 @@ angular.module('myApp.virtualmachine')
                 var containerHosts = data.data;
                 var containerHost = _.findWhere(containerHosts, { HostnameAlias: containerHostAlias})
 
-                var url = "http://" + containerHost.Hostname + "/1.0/container/" + containerBaseName + "/start";
+                var url = "//" + containerHost.Hostname + "/1.0/container/" + containerBaseName + "/start";
                 return $http.get(url);
               });
             }
@@ -82,7 +82,14 @@ angular.module('myApp.virtualmachine')
 
                 var containerHost = _.findWhere(containerHosts, { HostnameAlias: containerHostAlias})
 
-                var wssurl = "ws://"
+                var ws;
+                if (location.protocol === 'https:') {
+                  ws = "wss://";
+                } else {
+                  ws = "ws://";
+                }
+
+                var wssurl = ws
                   + containerHost.Hostname
                   + "/1.0/container/"
                   + containerBaseName

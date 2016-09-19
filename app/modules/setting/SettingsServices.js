@@ -25,11 +25,11 @@ angular.module('myApp.setting')
 
 
             obj.getSrvUrl = function() {
-              return 'http://' + obj.getMyCfg().srvurl;
+              return '//' + obj.getMyCfg().srvurl;
             }
 
             obj.getSrvApiUrl = function() {
-              return 'http://' + obj.getMyCfg().srvurl + '/1.0';
+              return '//' + obj.getMyCfg().srvurl + '/1.0';
             }
 
             return obj;
