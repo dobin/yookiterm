@@ -22,8 +22,8 @@
   <div ng-controller="menuCtrl">
     <ul class="menu">
       <li><a href="#/staticpages/index">Index</a></li>
-      <li><a ng-if="isAuthenticated" href="#/challenges">Challenges</a></li>
-      <li><a ng-if="isAuthenticated" href="#/container">Container</a></li>
+      <li ng-if="isAuthenticated" ><a href="#/challenges">Challenges</a></li>
+      <li ng-if="isAuthenticated"><a  href="#/container">Container</a></li>
       <li>
         <a ng-if="! isAuthenticated" href="#/authentication/login">Login</a>
         <span ng-if="isAuthenticated" ng-bind="loggedinUser"></span>
