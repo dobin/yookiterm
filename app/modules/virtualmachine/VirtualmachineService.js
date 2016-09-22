@@ -5,26 +5,25 @@ angular.module('myApp.virtualmachine')
         function ($http, $q, $timeout, SettingServices, AuthenticationServices) {
             var obj = {};
 
+            // yookiterm-server: Get available base container
             obj.getBaseContainerList = function() {
               var url = SettingServices.getSrvApiUrl() + "/baseContainers";
               return $http.get(url);
             }
 
-
+            // yookiterm-server: Get available container hosts
             obj.getContainerHostList = function() {
               var url = SettingServices.getSrvApiUrl() + "/containerHosts";
               return $http.get(url);
             }
 
-
+            // yookiterm-server + yookiterm-lxdserver:
+            // Get all running container
             obj.getContainerList = function() {
-              //return obj.getBaseContainerList().then(function(data) {
               return obj.getContainerHostList().then(function(data) {
-                //var promises = data.data.map(function(baseContainer) {
                 var promises = data.data.map(function(containerHost) {
                   var url = "//" + containerHost.Hostname + "/1.0/container";
                   return $http.get(url).then(function(resp) {
-                    console.log("D: " + JSON.stringify(resp.data));
                     return resp.data;
                   });
                 });
@@ -33,8 +32,11 @@ angular.module('myApp.virtualmachine')
                   var ret = [];
 
                   for(var n=0; n<data.length; n++) {
+                    if (data[n] == null) {
+                      continue;
+                    }
+
                     for(var nn=0; nn<data[n].length; nn++) {
-                      //var i = data[n][nn];
                       ret.push(data[n][nn]);
                     }
                   }
