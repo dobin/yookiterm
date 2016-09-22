@@ -31,7 +31,8 @@ angular.module('myApp.authentication', ['ngRoute'])
               AuthenticationServices.saveToken(data.data.token);
               $scope.error = "Authentication successful"
 
-              $window.location.reload();
+              $window.location = "/";
+              //$window.location.reload();
            } else {
               $scope.error = 'Username or password is incorrect';
               $scope.loading = false;

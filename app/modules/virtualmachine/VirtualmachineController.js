@@ -36,6 +36,8 @@ angular.module('myApp.virtualmachine', ['ngRoute'])
       $scope.baseContainers = baseContainers.data;
       $scope.containers = containers;
 
+      console.log("A: " + JSON.stringify(containers));
+
       $scope.startVirtualmachine = function() {
         console.log("Start VM: " + challenge.ContainerBaseName);
         //VirtualmachineServices.getVirtualmachine(challenge.ContainerHost, challenge.ContainerBaseName).then(function(data) {

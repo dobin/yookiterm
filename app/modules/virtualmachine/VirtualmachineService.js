@@ -18,10 +18,13 @@ angular.module('myApp.virtualmachine')
 
 
             obj.getContainerList = function() {
-              return obj.getBaseContainerList().then(function(data) {
-                var promises = data.data.map(function(baseContainer) {
-                  var url = SettingServices.getLxdApiUrl() + "/container/" + baseContainer.Name;
+              //return obj.getBaseContainerList().then(function(data) {
+              return obj.getContainerHostList().then(function(data) {
+                //var promises = data.data.map(function(baseContainer) {
+                var promises = data.data.map(function(containerHost) {
+                  var url = "//" + containerHost.Hostname + "/1.0/container";
                   return $http.get(url).then(function(resp) {
+                    console.log("D: " + JSON.stringify(resp.data));
                     return resp.data;
                   });
                 });
@@ -30,8 +33,10 @@ angular.module('myApp.virtualmachine')
                   var ret = [];
 
                   for(var n=0; n<data.length; n++) {
-                    var i = data[n];
-                    ret.push(data[n]);
+                    for(var nn=0; nn<data[n].length; nn++) {
+                      //var i = data[n][nn];
+                      ret.push(data[n][nn]);
+                    }
                   }
 
                   return ret;

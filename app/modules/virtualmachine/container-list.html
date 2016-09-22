@@ -19,12 +19,12 @@ Basecontainer:
   </thead>
 
 	<tr ng-repeat="container in containers">
-	  <td>{{container.containerBaseName}} </td>
-	  <td>{{container.containerName}}</td>
-		<td>{{container.expiry }}</td>
-		<td>{{container.username}}</td>
-		<td>{{container.password}}</td>
-		<td>{{container.status}}</td>
+	  <td>{{container.ContainerBaseName}} </td>
+	  <td>{{container.ContainerName}}</td>
+		<td>{{container.ContainerExpiry }}</td>
+		<td>{{container.ContainerUsername}}</td>
+		<td>{{container.ContainerPassword}}</td>
+		<td>{{container.ContainerStatus}}</td>
 		<td><a ng-click="startVirtualmachine()">Start VM</a> </td>
 	</tr>
 </table>
