@@ -18,19 +18,30 @@ angular.module('myApp.virtualmachine')
             }
 
             // yookiterm-server + yookiterm-lxdserver:
-            // Get all running container
+            // Get all container
+            // - running from server
+            // - stopped injected locally
             obj.getContainerList = function() {
               return obj.getContainerHostList().then(function(data) {
+                var pubContainerHosts = data.data;
+                // get container list
                 var promises = data.data.map(function(containerHost) {
                   var url = "//" + containerHost.Hostname + "/1.0/container";
                   return $http.get(url).then(function(resp) {
+                    if (resp.data) {
+                      for(var n=0; n<resp.data.length; n++) {
+                        resp.data[n].ContainerHostAlias = containerHost.HostnameAlias;
+                      }
+                    }
                     return resp.data;
                   });
                 });
 
+                // get container details for all in list
                 return $q.all(promises).then(function(data) {
                   var ret = [];
 
+                  // insert running
                   for(var n=0; n<data.length; n++) {
                     if (data[n] == null) {
                       continue;
@@ -40,6 +51,29 @@ angular.module('myApp.virtualmachine')
                       ret.push(data[n][nn]);
                     }
                   }
+
+                  // inject offline
+                  obj.getBaseContainerList().then(function(data) {
+                    var baseContainers = data.data;
+
+                    for(var i=0; i<pubContainerHosts.length; i++) {
+                      for(var n=0; n<baseContainers.length; n++) {
+                        if (! _.findWhere(ret, {
+                          ContainerHostAlias: pubContainerHosts[i].HostnameAlias,
+                          ContainerBaseName: baseContainers[n].Name
+                        } ) ) {
+
+                          ret.push(
+                            {
+                              "ContainerBaseName": baseContainers[n].Name,
+                              "ContainerHostAlias": pubContainerHosts[i].HostnameAlias,
+                            }
+                          );
+                        }
+                      }
+                    }
+
+                  });
 
                   return ret;
                 });

@@ -6,25 +6,34 @@ Basecontainer:
 
 
 <p></p>
-
 <table class="table table-condensed">
 	<thead>
 	  <th>containerBasename</th>
 	  <th>containerName</th>
+    <th>hostalias</th>
 	  <th>expiry</th>
 	  <th>username</th>
     <th>password</th>
-		<th>status</th>
+		<th>Running?</th>
 		<th>Action</th>
   </thead>
 
 	<tr ng-repeat="container in containers">
 	  <td>{{container.ContainerBaseName}} </td>
 	  <td>{{container.ContainerName}}</td>
-		<td>{{container.ContainerExpiry }}</td>
+    <td>{{container.ContainerHostAlias}}</td>
+		<td>
+      <span ng-if="container.ContainerExpiry">{{container.ContainerExpiry * 1000 | date:'yyyy-MM-dd HH:mm:ss'}}</span>
+      </td>
 		<td>{{container.ContainerUsername}}</td>
 		<td>{{container.ContainerPassword}}</td>
-		<td>{{container.ContainerStatus}}</td>
-		<td><a ng-click="startVirtualmachine()">Start VM</a> </td>
+		<td>
+      <i ng-if="container.ContainerStatus == '0'" class="glyphicon glyphicon-ok-sign"></i>
+      <i ng-if="container.ContainerStatus != '0'" class="glyphicon glyphicon-remove-sign"></i>
+    </td>
+		<td>
+      <a ng-if="container.ContainerStatus != '0'" ng-click="startVirtualmachine(container)">Start VM</a>
+      <a ng-if="container.ContainerStatus == '0'" ng-click="startConsole(container)">Console</a>
+    </td>
 	</tr>
 </table>
