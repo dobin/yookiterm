@@ -825,6 +825,10 @@
         ev.stopPropagation();
         if (ev.clipboardData) {
           var text = ev.clipboardData.getData('text/plain');
+
+          // we know its linux, so replace all \r\n (windows) with \n (linux, mac)
+          text = text.replace(/\r\n/g, "\n");
+
           term.handler(text);
           term.textarea.value = '';
           return term.cancel(ev);
