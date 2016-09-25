@@ -18,7 +18,8 @@
 			{{challenge.ContainerArch}}
 		</td>
 		<td>
-			{{challenge.ContainerAslr}}
+			<i ng-if="challenge.ContainerAslr == '1'" class="glyphicon glyphicon-ok"></i>
+      <i ng-if="challenge.ContainerAslr == '0'" class="glyphicon glyphicon-remove"></i>
 		</td>
 	</tr>
 </table>

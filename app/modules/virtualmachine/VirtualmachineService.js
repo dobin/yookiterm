@@ -149,9 +149,9 @@ angular.module('myApp.virtualmachine')
                 var sock = new WebSocket(wssurl);
 
                 term.on('data', function (data) {
-                    sock.send(data);
-                    //console.log("D");
-                    //sock.send(new Blob([data]));
+                    //sock.send(data); // orig
+                    sock.send(btoa(data)); // new
+                    //sock.send(new Blob([data])); // not working
                 });
 
 
