@@ -1,32 +1,32 @@
-Basecontainer:
-<div class="row" ng-repeat="baseContainer in baseContainers">
-  <div class="col-md-2">Base Container Name: </div>
-  <div class="col-md-10">{{baseContainer.Name}}</div>
-</div>
 
-
-<p></p>
 <table class="table table-condensed">
 	<thead>
 	  <th>containerBasename</th>
-	  <th>containerName</th>
     <th>hostalias</th>
 	  <th>expiry</th>
 	  <th>username</th>
     <th>password</th>
+    <th>Arch</th>
+    <th>aslr</th>
 		<th>Running?</th>
 		<th>Action</th>
   </thead>
 
 	<tr ng-repeat="container in containers">
+
 	  <td>{{container.ContainerBaseName}} </td>
-	  <td>{{container.ContainerName}}</td>
     <td>{{container.ContainerHostAlias}}</td>
 		<td>
       <span ng-if="container.ContainerExpiry">{{container.ContainerExpiry * 1000 | date:'yyyy-MM-dd HH:mm:ss'}}</span>
       </td>
 		<td>{{container.ContainerUsername}}</td>
 		<td>{{container.ContainerPassword}}</td>
+    <td>{{container.BaseContainer.Arch}}</td>
+    <td>
+      <i ng-if="container.ContainerHost.Aslr" class="glyphicon glyphicon-ok"></i>
+      <i ng-if="! container.ContainerHost.Aslr" class="glyphicon glyphicon-remove"></i>
+    </td>
+
 		<td>
       <i ng-if="container.ContainerStatus == '0'" class="glyphicon glyphicon-ok-sign"></i>
       <i ng-if="container.ContainerStatus != '0'" class="glyphicon glyphicon-remove-sign"></i>
@@ -37,3 +37,12 @@ Basecontainer:
     </td>
 	</tr>
 </table>
+
+
+<p></p>
+
+<b>Basecontainer:</b>
+<div class="row" ng-repeat="baseContainer in baseContainers">
+  <div class="col-md-2">Base Container Name: </div>
+  <div class="col-md-10">{{baseContainer.Name}}</div>
+</div>
