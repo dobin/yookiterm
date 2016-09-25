@@ -47,6 +47,14 @@ angular.module('myApp.challenge', ['ngRoute', 'ngSanitize', 'hljs'])
     var terminalWidth;
     var term;
 
+    $scope.closeTextTab = function() {
+      console.log("Close");
+    }
+    $scope.flipTabs = function() {
+      console.log("Flip");
+
+    }
+
     $scope.incSize = function(terminal) {
       terminal.height++;
       terminal.term.resize(terminal.width, terminal.height);
@@ -80,7 +88,6 @@ angular.module('myApp.challenge', ['ngRoute', 'ngSanitize', 'hljs'])
       } else {
         terminalCount++;
         t.id = terminalCount;
-        console.log("New: " + t.id);
         // Create a div to insert the term on
         // later with term.open
         // I just hope the page has been rendered until then...

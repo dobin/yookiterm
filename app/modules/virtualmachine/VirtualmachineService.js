@@ -142,6 +142,7 @@ angular.module('myApp.virtualmachine')
 
                 term.on('data', function (data) {
                     sock.send(data);
+                    //console.log("D");
                     //sock.send(new Blob([data]));
                 });
 
