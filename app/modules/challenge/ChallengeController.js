@@ -56,39 +56,50 @@ angular.module('myApp.challenge', ['ngRoute', 'ngSanitize', 'hljs'])
       terminal.term.resize(terminal.width, terminal.height);
     }
 
+    $scope.reload = function(terminal) {
+      console.log("T: " + terminal.id);
+      $scope.terminals[terminal.id-1].term.destroy();
+      $scope.getTerminal(terminal);
+    }
 
-    $scope.getTerminal = function() {
+    $scope.getTerminal = function(origTerminal) {
       if (terminalCount == 3) {
         return;
       }
-      terminalCount++;
 
       var t = {
         height: 25,
         width: null,
-        id: terminalCount,
+        id: null,
         term: null,
       };
 
-      // Create a div to insert the term on
-      // later with term.open
-      // I just hope the page has been rendered until then...
-      var idx = $scope.terminals.push(t);
-
+      var idx;
+      if (origTerminal) {
+        idx = origTerminal.id;
+      } else {
+        terminalCount++;
+        t.id = terminalCount;
+        console.log("New: " + t.id);
+        // Create a div to insert the term on
+        // later with term.open
+        // I just hope the page has been rendered until then...
+        idx = $scope.terminals.push(t);
+        $scope.showAddTerminalButton = false;
+      }
       spinnerService.show('booksSpinner');
-      $scope.showAddTerminalButton = false;
 
       VirtualmachineServices.startContainerIfNecessary(challenge.ContainerHostAlias, challenge.ContainerBaseName).then(function(data) {
         $scope.terminals[idx-1].term = VirtualmachineServices.getTerminal(t.height);
-        $scope.terminals[idx-1].term.open(document.getElementById('console' + terminalCount));
+        $scope.terminals[idx-1].term.open(document.getElementById('console' + (idx)));
         var initialGeometry = $scope.terminals[idx-1].term.proposeGeometry(),
             cols = initialGeometry.cols,
             rows = initialGeometry.rows;
         $scope.terminals[idx-1].width = cols;
 
-        VirtualmachineServices.getWebsocketTerminal(t.term, challenge.ContainerHostAlias, challenge.ContainerBaseName, cols, rows);
+        VirtualmachineServices.getWebsocketTerminal($scope.terminals[idx-1].term, challenge.ContainerHostAlias, challenge.ContainerBaseName, cols, rows);
 
-        $scope.terminals[idx-1].term.on('destroy', function (size) {
+        $scope.terminals[idx-1].term.on('destroy', function () {
           console.log("DDDDDDDDDDDD");
         });
 
