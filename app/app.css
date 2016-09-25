@@ -38,7 +38,6 @@
   background-color: #f7f7f7;
   border-bottom: 1px solid #bdbdbd;
   padding-right: 0px;
-  padding-left: 10px;
 }
 
 #challenge-right {
@@ -61,7 +60,6 @@ body, html {
     position: absolute;
     top: 20px;
     bottom: 10px;
-    left: 3px;
     width: 50%;
     overflow-y: scroll;
     padding-left: 0px;
