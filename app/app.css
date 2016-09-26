@@ -5,12 +5,23 @@
   border-bottom: 0.1em solid black;
   /*margin-bottom: 1em;*/
   padding: 0 0 3px;
-  background-color: #f1f1f1;
+  /*background-color: #f1f1f1;*/
+  background-color: #133801;
+  color: white;
   margin: 0px;
 }
 
+.menu a {
+  color: white;
+}
+
+.btn-primary {
+  color: white;
+  background-color: #1D5900;
+}
+
 .menu:before {
-  content: "[";
+  content: "exploit.courses [";
 }
 
 .menu:after {
@@ -35,13 +46,17 @@
 #challenge-menu {
   padding-top: 3px;
   padding-bottom: 3px;
-  background-color: #f7f7f7;
+  background-color: white;
   border-bottom: 1px solid #bdbdbd;
   padding-right: 0px;
 }
 
 #challenge-right {
   padding-left: 2px;
+}
+
+#terminal {
+  /*border-bottom: 1px solid black;*/
 }
 
 .horizontal-line {

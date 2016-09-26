@@ -17,6 +17,7 @@
     "highlight": "^9.6.0",
     "angular-highlightjs": "^0.6.2",
     "angular-spinners": "^3.1.2",
-    "underscore": "^1.8.3"
+    "underscore": "^1.8.3",
+    "angular-bootstrap": "^2.1.4"
   }
 }

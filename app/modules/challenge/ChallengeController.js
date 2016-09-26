@@ -33,7 +33,7 @@ angular.module('myApp.challenge', ['ngRoute', 'ngSanitize', 'hljs'])
    	})
 
 
-  .controller('challengeViewCtrl', function ($scope, $routeParams, $filter, $location, $route, $interval,
+  .controller('challengeViewCtrl', function ($scope, $routeParams, $filter, $location, $route, $interval, $sce,
                                               spinnerService, VirtualmachineServices, AuthenticationServices, challenge)
   {
     challenge = challenge.data;
@@ -41,12 +41,21 @@ angular.module('myApp.challenge', ['ngRoute', 'ngSanitize', 'hljs'])
     $scope.showAddTerminalButton = true;
     $scope.isAdmin = AuthenticationServices.isAdmin();
 
+    console.log("A: " + JSON.stringify(challenge));
+
     $scope.terminals = [];
 
     var terminalCount = 0;
     var terminalHeight = 25;
     var terminalWidth;
     var term;
+
+    $scope.showContainerInfo = function() {
+      VirtualmachineServices.getContainerInfo(challenge.ContainerBaseName, challenge.ContainerHostAlias).then(function(data) {
+        $scope.containerInfo = data.data;
+        console.log("D: " + JSON.stringify(data.data));
+      });
+    }
 
     $scope.closeTextTab = function() {
       console.log("Close");

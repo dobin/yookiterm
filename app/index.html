@@ -17,9 +17,11 @@
   <link rel="stylesheet" href="app.css">
   <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
+
 <body>
 
   <div ng-controller="menuCtrl">
+
     <ul class="menu">
       <li><a href="#/staticpages/index">Index</a></li>
       <li ng-if="isAuthenticated" ><a href="#/challenges">Challenges</a></li>
@@ -43,9 +45,11 @@
   <script src="components/terminal/xterm.min.js"></script>
   <script src="components/terminal/xterm-addon-fit.js"></script>
 
-  <script src="bower_components/angular/angular.min.js"></script>
+  <script src="bower_components/angular/angular.js"></script>
   <script src="bower_components/angular-route/angular-route.min.js"></script>
   <script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+
+  <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
   <script src="bower_components/underscore/underscore-min.js"></script>
 
   <script src="bower_components/showdown/dist/showdown.min.js"></script>

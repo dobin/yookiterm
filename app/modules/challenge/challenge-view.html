@@ -1,3 +1,15 @@
+<script type="text/ng-template" id="myPopoverTemplate.html">
+    <div>{{dynamicPopover.content}}</div>
+    <div class="form-group">
+      <label>Username: </label> {{containerInfo.username}}
+    </div>
+    <div class="form-group">
+      <label>Password: </label> {{containerInfo.password}}
+    </div>
+    <div class="form-group">
+      <label>IP: </label> {{containerInfo.ip}}
+    </div>
+</script>
 
 <div class="container-fluid">
     <div class="row">
@@ -23,16 +35,24 @@
 
             <div class="col-md-4">
               <div class="text-right">
-                {{challenge.ContainerHostAlias}} | {{challenge.ContainerBaseName}}
-            </div>
+                ASLR:
+                <i ng-if="container.ContainerHost.Aslr" class="glyphicon glyphicon-ok"></i>
+                <i ng-if="! container.ContainerHost.Aslr" class="glyphicon glyphicon-remove"></i>
+                Arch: {{challenge.ContainerArch}}
+
+                <button uib-popover-template="'myPopoverTemplate.html'" ng-click="showContainerInfo()"
+                    type="button" class="btn btn-primary btn-xs" popover-placement="bottom-right">
+                   Info
+                 </button>
+              </div>
             </div>
 					</div>
 
-          <div class="row horizontal-line" ng-repeat="terminal in terminals">
-            <div class="col-md-12" id="challenge-menu">
+          <div class="row" ng-repeat="terminal in terminals">
+            <div class="col-md-12" class="terminal">
               <div id="{{'console' + terminal.id}}" style="background-color:black;"></div>
             </div>
-            <div class="col-md-12" id="challenge-menu">
+            <div class="col-md-12"  id="terminal">
               <button class="btn btn-primary btn-xs" type="button" ng-click="incSize(terminal)">
                 <i class="glyphicon glyphicon-plus-sign"></i>
               </button>
@@ -42,7 +62,6 @@
               <button class="btn btn-primary btn-xs" type="button" ng-click="reload(terminal)">
                 <i class="glyphicon glyphicon-refresh"></i>
               </button>
-
             </div>
           </div>
 

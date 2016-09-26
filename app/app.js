@@ -4,6 +4,7 @@ angular.module('myApp', [
   'ngRoute',
   'hljs',
   'angularSpinners',
+  'ui.bootstrap',
   'myApp.version',
   'myApp.challenge',
   'myApp.virtualmachine',
