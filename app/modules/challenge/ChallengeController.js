@@ -34,11 +34,12 @@ angular.module('myApp.challenge', ['ngRoute', 'ngSanitize', 'hljs'])
 
 
   .controller('challengeViewCtrl', function ($scope, $routeParams, $filter, $location, $route, $interval,
-                                              spinnerService, VirtualmachineServices, challenge)
+                                              spinnerService, VirtualmachineServices, AuthenticationServices, challenge)
   {
     challenge = challenge.data;
     $scope.challenge = challenge;
     $scope.showAddTerminalButton = true;
+    $scope.isAdmin = AuthenticationServices.isAdmin();
 
     $scope.terminals = [];
 
@@ -52,7 +53,9 @@ angular.module('myApp.challenge', ['ngRoute', 'ngSanitize', 'hljs'])
     }
     $scope.flipTabs = function() {
       console.log("Flip");
-
+    }
+    $scope.stopContainer = function() {
+      VirtualmachineServices.stopContainer($scope.challenge.ContainerHostAlias, $scope.challenge.ContainerBaseName);
     }
 
     $scope.incSize = function(terminal) {

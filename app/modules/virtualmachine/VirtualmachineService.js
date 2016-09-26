@@ -95,21 +95,36 @@ angular.module('myApp.virtualmachine')
               });
             }
 
+
             obj.getHostnameForAlias = function(containerHostAlias) {
               var containerHostsUrl = SettingServices.getSrvApiUrl() + "/containerHosts";
-              return $http.get(containerHostsUrl);
+              return $http.get(containerHostsUrl).then(function(data) {
+                var containerHosts = data.data;
+                var containerHost = _.findWhere(containerHosts, { HostnameAlias: containerHostAlias})
+                return containerHost;
+              });
             }
+
 
             // Public
             obj.startContainerIfNecessary = function(containerHostAlias, containerBaseName) {
               return obj.getHostnameForAlias(containerHostAlias).then(function(data) {
-                var containerHosts = data.data;
-                var containerHost = _.findWhere(containerHosts, { HostnameAlias: containerHostAlias})
+                var containerHost = data;
 
                 var url = "//" + containerHost.Hostname + "/1.0/container/" + containerBaseName + "/start";
                 return $http.get(url);
               });
             }
+
+
+            // Public
+            obj.stopContainer = function(containerHostAlias, containerBaseName) {
+              return obj.getHostnameForAlias(containerHostAlias).then(function(containerHost) {
+                var url = "//" + containerHost.Hostname + "/1.0/container/" + containerBaseName + "/stop";
+                return $http.get(url);
+              });
+            }
+
 
             // Public
             obj.getTerminal = function(initialTermHeight) {
@@ -120,16 +135,16 @@ angular.module('myApp.virtualmachine')
                   screenKeys: false,
                   cursorBlink: false
               });
-
               return term;
             }
+
 
             // Public
             obj.getWebsocketTerminal = function(term, containerHostAlias, containerBaseName, width, height) {
               return obj.getHostnameForAlias(containerHostAlias).then(function(data) {
-                var containerHosts = data.data;
-
-                var containerHost = _.findWhere(containerHosts, { HostnameAlias: containerHostAlias})
+                //var containerHosts = data.data;
+                //var containerHost = _.findWhere(containerHosts, { HostnameAlias: containerHostAlias})
+                var containerHost = data;
 
                 var ws;
                 if (location.protocol === 'https:') {
@@ -178,7 +193,7 @@ angular.module('myApp.virtualmachine')
                        console.error(err);
                    };
                };
-          });
+             });
 
           }
 

@@ -9,7 +9,12 @@
                 <i class="glyphicon glyphicon-plus"></i>
                 Add Terminal
               </button>
-              <button class="btn btn-primary btn-xs" type="button" ng-click="closeTab()">Close Tab</button>
+              <button class="btn btn-primary btn-xs" type="button" ng-click="closeTab()">
+                Close Tab
+              </button>
+              <button ng-if="isAdmin" class="btn btn-primary btn-xs" type="button" ng-click="stopContainer()">
+                Stop Container
+              </button>
             </div>
 
             <div class="col-md-1">

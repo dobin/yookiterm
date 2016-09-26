@@ -47,6 +47,16 @@ angular.module('myApp.authentication')
               }
             }
 
+            obj.isAdmin = function() {
+              var token = obj.getToken();
+              if(token) {
+                var params = obj.parseJwt(token);
+                return params.admin;
+              } else {
+                return false;
+              }
+            }
+
 						return obj;
         }
 		])
