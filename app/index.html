@@ -24,6 +24,9 @@
       <li><a href="#/staticpages/index">Index</a></li>
       <li ng-if="isAuthenticated" ><a href="#/challenges">Challenges</a></li>
       <li ng-if="isAuthenticated"><a  href="#/container">Container</a></li>
+      <li ng-if="isAdmin">
+        <a  href="#/admin">Admin</a>
+      </li>
       <li>
         <a ng-if="! isAuthenticated" href="#/authentication/login">Login</a>
         <span ng-if="isAuthenticated" ng-bind="loggedinUser"></span>
@@ -56,6 +59,8 @@
   <script src="app.js"></script>
 
   <script src="modules/staticpages/StaticpagesController.js"></script>
+  <script src="modules/admin/AdminController.js"></script>
+  <script src="modules/admin/AdminServices.js"></script>
   <script src="modules/authentication/AuthenticationController.js"></script>
   <script src="modules/authentication/AuthenticationServices.js"></script>
   <script src="modules/setting/SettingsController.js"></script>

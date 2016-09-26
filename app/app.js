@@ -9,7 +9,8 @@ angular.module('myApp', [
   'myApp.virtualmachine',
   'myApp.setting',
   'myApp.authentication',
-  'myApp.staticpages'
+  'myApp.staticpages',
+  'myApp.admin'
 ])
 
 
@@ -39,6 +40,7 @@ function($locationProvider, $routeProvider, hljsServiceProvider) {
 
     var token = AuthenticationServices.parseJwt(AuthenticationServices.getToken());
     $scope.loggedinUser = token.userId;
+    $scope.isAdmin = token.admin;
   }
 })
 
