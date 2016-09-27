@@ -15,16 +15,13 @@ angular.module('myApp.admin', ['ngRoute'])
                                              AdminServices, VirtualmachineServices)
 {
   $scope.output = "";
-  $scope.cmdCheckout = function() {
-    VirtualmachineServices.adminCmd("checkout").then(function(data) {
-
+  $scope.cmdCheckout = function(cmd) {
+    VirtualmachineServices.adminCmd(cmd).then(function(data) {
       var res = [];
-
       for(var n=0; n<data.length; n++) {
         res.push(data[n].data);
       }
       $scope.output = JSON.stringify(res);
-
     });
   }
 })

@@ -3,8 +3,9 @@ Admin:
 
   <div class="col-md-12">
     <ul>
-      <li> Allow Internet traffic / Forbid Internet traffic</li>
-    	<li> <a ng-click="cmdCheckout()">Checkout challenge data (will start/stop all basecontainer)</a></li>
+      <li> <a ng-click="adminCmd('allowfw')">Allow Internet traffic</a>
+        / <a ng-click="adminCmd('blockfw')">Forbid Internet traffic</a></li>
+    	<li> <a ng-click="adminCmd('checkout')">Checkout challenge data (will start/stop all basecontainer)</a></li>
     	<li> Open a basecontainer (?)</li>
     	<li> </li>
     </uL>
