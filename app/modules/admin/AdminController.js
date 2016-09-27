@@ -15,7 +15,7 @@ angular.module('myApp.admin', ['ngRoute'])
                                              AdminServices, VirtualmachineServices)
 {
   $scope.output = "";
-  $scope.cmdCheckout = function(cmd) {
+  $scope.adminCmd = function(cmd) {
     VirtualmachineServices.adminCmd(cmd).then(function(data) {
       var res = [];
       for(var n=0; n<data.length; n++) {
