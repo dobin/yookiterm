@@ -12,9 +12,21 @@ angular.module('myApp.admin', ['ngRoute'])
 
 
 .controller('adminPageCtrl', function ($scope, $window, $routeParams, $filter, $location,
-                                             AdminServices)
+                                             AdminServices, VirtualmachineServices)
 {
+  $scope.output = "";
+  $scope.cmdCheckout = function() {
+    VirtualmachineServices.adminCmd("checkout").then(function(data) {
 
+      var res = [];
+
+      for(var n=0; n<data.length; n++) {
+        res.push(data[n].data);
+      }
+      $scope.output = JSON.stringify(res);
+
+    });
+  }
 })
 
 ;

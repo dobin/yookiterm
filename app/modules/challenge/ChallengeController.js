@@ -41,8 +41,6 @@ angular.module('myApp.challenge', ['ngRoute', 'ngSanitize', 'hljs'])
     $scope.showAddTerminalButton = true;
     $scope.isAdmin = AuthenticationServices.isAdmin();
 
-    console.log("A: " + JSON.stringify(challenge));
-
     $scope.terminals = [];
 
     var terminalCount = 0;
@@ -53,7 +51,6 @@ angular.module('myApp.challenge', ['ngRoute', 'ngSanitize', 'hljs'])
     $scope.showContainerInfo = function() {
       VirtualmachineServices.getContainerInfo(challenge.ContainerBaseName, challenge.ContainerHostAlias).then(function(data) {
         $scope.containerInfo = data.data;
-        console.log("D: " + JSON.stringify(data.data));
       });
     }
 

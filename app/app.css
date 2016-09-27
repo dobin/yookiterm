@@ -11,6 +11,11 @@
   margin: 0px;
 }
 
+.ta {
+  width: 700px;
+  height: 200px;
+}
+
 .menu a {
   color: white;
 }

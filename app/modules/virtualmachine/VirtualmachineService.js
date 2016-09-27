@@ -89,6 +89,20 @@ angular.module('myApp.virtualmachine')
             }
 
 
+            obj.adminCmd = function(cmd) {
+              return obj.getContainerHostList().then(function(data) {
+                var pubContainerHosts = data.data;
+
+                var promises = pubContainerHosts.map(function(containerHost) {
+                  var url = "//" + containerHost.Hostname + "/1.0/admin/exec/" + cmd;
+                  return $http.get(url);
+                });
+
+                return $q.all(promises);
+              });
+            }
+
+
             obj.getTerminalForContainer = function(containerBaseName) {
               obj.startContainerIfNecessary(containerBaseName).then(function(data) {
                 return data;

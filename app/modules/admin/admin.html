@@ -1,8 +1,16 @@
 Admin:
+<div class="ng-row">
 
-<ul>
-  <li> Allow Internet traffic / Forbid Internet traffic</li>
-	<li> Checkout challenge data (will start/stop all basecontainer)</li>
-	<li> Open a basecontainer (?)</li>
-	<li> </li>
-</uL>
+  <div class="col-md-12">
+    <ul>
+      <li> Allow Internet traffic / Forbid Internet traffic</li>
+    	<li> <a ng-click="cmdCheckout()">Checkout challenge data (will start/stop all basecontainer)</a></li>
+    	<li> Open a basecontainer (?)</li>
+    	<li> </li>
+    </uL>
+  </div>
+
+  <div class="col-md-12">
+    <textarea ng-model="output" class="ta"></textarea>
+  </div>
+</div>
