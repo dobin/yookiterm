@@ -36,11 +36,26 @@ angular.module('myApp.virtualmachine', ['ngRoute'])
       $scope.baseContainers = baseContainers.data;
       $scope.containers = containers;
 
-      $scope.startVirtualmachine = function() {
-        console.log("Start VM: " + challenge.ContainerBaseName);
-        //VirtualmachineServices.getVirtualmachine(challenge.ContainerHost, challenge.ContainerBaseName).then(function(data) {
-        //  console.log("Data.data: " + JSON.stringify(data.data));
-        //});
+      console.log("A: " + JSON.stringify($scope.containers[0]));
+
+      $scope.startVirtualmachine = function(container) {
+        console.log("Start VM: " + JSON.stringify(container));
+        VirtualmachineServices.startContainerIfNecessary(container.ContainerHost.HostnameAlias, container.ContainerBaseName).then(function(data) {
+          console.log("Data.data: " + JSON.stringify(data.data));
+
+          for(var n=0; n<$scope.containers.length; n++) {
+            if ($scope.containers[n] == container) {
+              $scope.containers[n].ContainerUsername = data.data.ConatainerUsername;
+              $scope.containers[n].ContainerPassword = data.data.ContainerPassword;
+              $scope.containers[n].ContainerExpiry = data.data.ContainerExpiry;
+              $scope.containers[n].ContainerStatus = data.data.ContainerStatus;
+            }
+          }
+        });
+      };
+
+      $scope.startConsole = function(container) {
+        
       }
     })
 ;

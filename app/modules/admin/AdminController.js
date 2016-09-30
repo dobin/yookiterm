@@ -19,6 +19,9 @@ angular.module('myApp.admin', ['ngRoute'])
     VirtualmachineServices.adminCmd(cmd).then(function(data) {
       var res = [];
       for(var n=0; n<data.length; n++) {
+        if (data[n].data.error.Stderr) {
+          data[n].data.error.Stderr = btoa(data[n].data.error.Stderror);
+        }
         res.push(data[n].data);
       }
       $scope.output = JSON.stringify(res);

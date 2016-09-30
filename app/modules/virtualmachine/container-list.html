@@ -6,7 +6,8 @@
 	  <th>expiry</th>
 	  <th>username</th>
     <th>password</th>
-    <th>Arch</th>
+		<th>Arch</th>
+    <th>Bits</th>
     <th>aslr</th>
 		<th>Running?</th>
 		<th>Action</th>
@@ -21,7 +22,8 @@
       </td>
 		<td>{{container.ContainerUsername}}</td>
 		<td>{{container.ContainerPassword}}</td>
-    <td>{{container.BaseContainer.Arch}}</td>
+		<td>{{container.ContainerHost.Arch}}</td>
+    <td>{{container.BaseContainer.Bits}}</td>
     <td>
       <i ng-if="container.ContainerHost.Aslr" class="glyphicon glyphicon-ok"></i>
       <i ng-if="! container.ContainerHost.Aslr" class="glyphicon glyphicon-remove"></i>
@@ -32,8 +34,8 @@
       <i ng-if="container.ContainerStatus != '0'" class="glyphicon glyphicon-remove-sign"></i>
     </td>
 		<td>
-      <a ng-if="container.ContainerStatus != '0'" ng-click="startVirtualmachine(container)">Start VM</a>
-      <a ng-if="container.ContainerStatus == '0'" ng-click="startConsole(container)">Console</a>
+			<button ng-if="container.ContainerStatus != '0'" class="btn btn-primary" type="button" ng-click="startVirtualmachine(container)">Start VM</button>
+			<button ng-if="container.ContainerStatus == '0'" class="btn btn-primary" type="button" ng-click="startConsole(container)">Terminal</button>
     </td>
 	</tr>
 </table>
