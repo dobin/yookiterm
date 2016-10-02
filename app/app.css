@@ -68,12 +68,13 @@
   border: 1px solid white;
 }
 
-
+/*
 body, html {
   margin: 0;
   overflow: hidden;
   height:100%;
 }
+*/
 
 @media (min-width: 768px){
   #left {

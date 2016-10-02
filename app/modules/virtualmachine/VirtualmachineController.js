@@ -20,9 +20,36 @@ angular.module('myApp.virtualmachine', ['ngRoute'])
                 }
             }
         })
+        .when('/container/:containerHostAlias/:containerBaseName/console', {
+            title: 'Container Console',
+            templateUrl: 'modules/virtualmachine/container-console.html',
+            controller: 'containerConsoleCtrl',
+/*            resolve: {
+                baseContainers: function (VirtualmachineServices) {
+                    return VirtualmachineServices.getBaseContainerList();
+                },
+                containers: function(VirtualmachineServices) {
+                  return VirtualmachineServices.getContainerList();
+                }
+            }*/
+        })
         ;
     }])
 
+    .controller('containerConsoleCtrl', function ($scope, $routeParams, $filter, $location, $route,
+                                                 VirtualmachineServices) {
+        $scope.showAddTerminalButton = true;
+        console.log("Console");
+
+        var containerHostAlias = $route.current.params.containerHostAlias;
+        var containerBaseName = $route.current.params.containerBaseName;
+
+        VirtualmachineServices.getHostnameForAlias(containerHostAlias).then(function(data) {
+          var containerHostname = data.Hostname;
+        });
+
+
+    })
 
     .controller('virtualmachinePageCtrl', function ($scope, $routeParams, $filter, $location,
                                                  VirtualmachineServices) {
@@ -30,21 +57,19 @@ angular.module('myApp.virtualmachine', ['ngRoute'])
     })
 
 
-    .controller('containerListCtrl', function ($scope, $routeParams, $filter, $location,
+    .controller('containerListCtrl', function ($scope, $routeParams, $filter, $location, $window,
                                                  VirtualmachineServices, baseContainers, containers)
     {
       $scope.baseContainers = baseContainers.data;
       $scope.containers = containers;
 
-      console.log("A: " + JSON.stringify($scope.containers[0]));
-
       $scope.startVirtualmachine = function(container) {
-        console.log("Start VM: " + JSON.stringify(container));
         VirtualmachineServices.startContainerIfNecessary(container.ContainerHost.HostnameAlias, container.ContainerBaseName).then(function(data) {
-          console.log("Data.data: " + JSON.stringify(data.data));
-
           for(var n=0; n<$scope.containers.length; n++) {
+            console.log("A");
             if ($scope.containers[n] == container) {
+              console.log("B: " + JSON.stringify(data.data));
+              console.log("BB: " + JSON.stringify($scope.containers[n]));
               $scope.containers[n].ContainerUsername = data.data.ConatainerUsername;
               $scope.containers[n].ContainerPassword = data.data.ContainerPassword;
               $scope.containers[n].ContainerExpiry = data.data.ContainerExpiry;
@@ -55,7 +80,11 @@ angular.module('myApp.virtualmachine', ['ngRoute'])
       };
 
       $scope.startConsole = function(container) {
-        
+        console.log("A: " + JSON.stringify(container));
+          //$window.open($location.absUrl() + '#schallenges', '_blank');
+          var url = $location.protocol() + "://" + $location.host() + ":" + $location.port();
+          url += '#/container/' + container.ContainerHost.HostnameAlias + "/" + container.BaseContainer.Name + "/console";
+          $window.open(url, '_blank');
       }
     })
 ;

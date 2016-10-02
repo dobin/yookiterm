@@ -1,0 +1,75 @@
+Console:
+
+
+<div class="container-fluid">
+    <div class="row">
+
+        <div class="col-md-6" id="left">
+          <div class="row" id="challenge-menu">
+            <div class="col-md-7">
+              <button class="btn btn-primary btn-xs" type="button" ng-click="getTerminal()" ng-disabled="! showAddTerminalButton">
+                <i class="glyphicon glyphicon-plus"></i>
+                Add Terminal
+              </button>
+              <button class="btn btn-primary btn-xs" type="button" ng-click="closeTab()">
+                Close Tab
+              </button>
+              <button ng-if="isAdmin" class="btn btn-primary btn-xs" type="button" ng-click="stopContainer()">
+                Stop Container
+              </button>
+            </div>
+
+            <div class="col-md-1">
+              <spinner name="booksSpinner" img-src="components/spinner.gif"></spinner>
+            </div>
+
+            <div class="col-md-4">
+              <div class="text-right">
+                ASLR:
+                <i ng-if="container.ContainerHost.Aslr" class="glyphicon glyphicon-ok"></i>
+                <i ng-if="! container.ContainerHost.Aslr" class="glyphicon glyphicon-remove"></i>
+                Arch: {{challenge.ContainerArch}}
+
+                <button uib-popover-template="'myPopoverTemplate.html'" ng-click="showContainerInfo()"
+                    type="button" class="btn btn-primary btn-xs" popover-placement="bottom-right">
+                   Info
+                 </button>
+              </div>
+            </div>
+					</div>
+
+          <div class="row" ng-repeat="terminal in terminals">
+            <div class="col-md-12" class="terminal">
+              <div id="{{'console' + terminal.id}}" style="background-color:black;"></div>
+            </div>
+            <div class="col-md-12"  id="terminal">
+              <button class="btn btn-primary btn-xs" type="button" ng-click="incSize(terminal)">
+                <i class="glyphicon glyphicon-plus-sign"></i>
+              </button>
+              <button class="btn btn-primary btn-xs" type="button" ng-click="decSize(terminal)">
+              <i class="glyphicon glyphicon-minus-sign"></i>
+            </button>
+              <button class="btn btn-primary btn-xs" type="button" ng-click="reload(terminal)">
+                <i class="glyphicon glyphicon-refresh"></i>
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+
+        <div class="col-md-6" id="right">
+					<div class="row" id="challenge-menu">
+					&nbsp;<a ng-click="closeTextTab()">Close this tab</a>
+						|
+						<a ng-click="flipTabs()">Flip tab</a>
+					</div>
+
+          <div class="row" id="challenge-right">
+            <div class="col-md-12">
+				          Text und so 
+            </div>
+          </div>
+        </div>
+    </div>
+</div>

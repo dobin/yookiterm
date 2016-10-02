@@ -45,6 +45,8 @@ angular.module('myApp.virtualmachine')
                         }
                       }
                       return resp.data;
+                    }, function(bla) {
+                      console.log("BLA");
                     });
                   });
 
@@ -83,6 +85,8 @@ angular.module('myApp.virtualmachine')
                     }
 
                     return ret;
+                  }, function(bla) {
+                    console.log("BLaA");
                   });
                 });
               })
@@ -102,13 +106,13 @@ angular.module('myApp.virtualmachine')
               });
             }
 
-
+/*
             obj.getTerminalForContainer = function(containerBaseName) {
               obj.startContainerIfNecessary(containerBaseName).then(function(data) {
                 return data;
               });
             }
-
+*/
 
             obj.getHostnameForAlias = function(containerHostAlias) {
               var containerHostsUrl = SettingServices.getSrvApiUrl() + "/containerHosts";
