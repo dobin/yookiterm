@@ -35,7 +35,7 @@
     </td>
 		<td>
 			<button ng-if="container.ContainerStatus != '0'" class="btn btn-primary" type="button" ng-click="startVirtualmachine(container)">Start VM</button>
-			<button ng-if="container.ContainerStatus == '0'" class="btn btn-primary" type="button" ng-click="startConsole(container)">Terminal</button>
+			<button ng-disabled="true" ng-if="container.ContainerStatus == '0'" class="btn btn-primary" type="button" ng-click="startConsole(container)">Terminal</button>
     </td>
 	</tr>
 </table>
