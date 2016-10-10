@@ -75,6 +75,7 @@ angular.module('myApp.container')
                         } ) ) {
                           ret.push(
                             {
+                              "ContainerHostAlias": pubContainerHosts[i].HostnameAlias,
                               "ContainerBaseName": baseContainers[n].Name,
                               "ContainerHost": pubContainerHosts[i],
                               "BaseContainer": baseContainers[n],

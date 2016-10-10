@@ -120,8 +120,6 @@ angular.module('myApp.container', ['ngRoute'])
       };
 
       $scope.startConsole = function(container) {
-        console.log("A: " + JSON.stringify(container));
-          //$window.open($location.absUrl() + '#schallenges', '_blank');
           var url = $location.protocol() + "://" + $location.host() + ":" + $location.port();
           url += '#/container/' + container.ContainerHost.HostnameAlias + "/" + container.BaseContainer.Name + "/console";
           $window.open(url, '_blank');
