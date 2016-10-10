@@ -37,16 +37,58 @@ angular.module('myApp.virtualmachine', ['ngRoute'])
     }])
 
     .controller('containerConsoleCtrl', function ($scope, $routeParams, $filter, $location, $route,
-                                                 VirtualmachineServices) {
-        $scope.showAddTerminalButton = true;
-        console.log("Console");
-
+                                                 VirtualmachineServices)
+    {
         var containerHostAlias = $route.current.params.containerHostAlias;
         var containerBaseName = $route.current.params.containerBaseName;
 
         VirtualmachineServices.getHostnameForAlias(containerHostAlias).then(function(data) {
           var containerHostname = data.Hostname;
         });
+
+        var t = {
+          height: 25,
+          width: 80,
+          id: null,
+          term: null,
+        };
+
+        $scope.terminal = t;
+        $scope.showAddTerminalButton = false;
+
+        VirtualmachineServices.startContainerIfNecessary(containerHostAlias, containerBaseName).then(function(data) {
+          $scope.terminal.term = VirtualmachineServices.getTerminal(t.height);
+          $scope.terminal.term.open(document.getElementById('console'));
+          var initialGeometry = $scope.terminal.term.proposeGeometry(),
+              cols = initialGeometry.cols,
+              rows = initialGeometry.rows;
+          $scope.terminal.width = 80;
+
+          VirtualmachineServices.getWebsocketTerminal($scope.terminal.term, containerHostAlias, containerBaseName, cols, rows);
+
+          $scope.terminal.term.on('destroy', function () {
+            console.log("DDDDDDDDDDDD");
+          });
+
+          $scope.terminal.term.on('resize', function (size) {
+            //console.log("Resize: C: " + size.cols + " R: " + size.rows);
+
+            var cols = size.cols;
+            var rows = size.rows;
+
+          /*  if (!pid) {
+              return;
+            }
+            var cols = size.cols,
+                rows = size.rows,
+                url = '/terminals/' + pid + '/size?cols=' + cols + '&rows=' + rows;
+
+            fetch(url, {method: 'POST'});*/
+          });
+        }).finally(function () {
+          //$scope.terminal.term.fit();
+          //$scope.showAddTerminalButton = true;
+        })
 
 
     })

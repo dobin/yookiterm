@@ -57,9 +57,11 @@ angular.module('myApp.challenge', ['ngRoute', 'ngSanitize', 'hljs'])
     $scope.closeTextTab = function() {
       console.log("Close");
     }
+
     $scope.flipTabs = function() {
       console.log("Flip");
     }
+
     $scope.stopContainer = function() {
       VirtualmachineServices.stopContainer($scope.challenge.ContainerHostAlias, $scope.challenge.ContainerBaseName);
     }
@@ -74,7 +76,6 @@ angular.module('myApp.challenge', ['ngRoute', 'ngSanitize', 'hljs'])
     }
 
     $scope.reload = function(terminal) {
-      console.log("T: " + terminal.id);
       $scope.terminals[terminal.id-1].term.destroy();
       $scope.getTerminal(terminal);
     }
