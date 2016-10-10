@@ -34,7 +34,7 @@ angular.module('myApp.challenge', ['ngRoute', 'ngSanitize', 'hljs'])
 
 
   .controller('challengeViewCtrl', function ($scope, $routeParams, $filter, $location, $route, $interval, $sce,
-                                              spinnerService, VirtualmachineServices, AuthenticationServices, challenge)
+                                              spinnerService, ContainerServices, AuthenticationServices, challenge)
   {
     challenge = challenge.data;
     $scope.challenge = challenge;
@@ -49,7 +49,7 @@ angular.module('myApp.challenge', ['ngRoute', 'ngSanitize', 'hljs'])
     var term;
 
     $scope.showContainerInfo = function() {
-      VirtualmachineServices.getContainerInfo(challenge.ContainerBaseName, challenge.ContainerHostAlias).then(function(data) {
+      ContainerServices.getContainerInfo(challenge.ContainerBaseName, challenge.ContainerHostAlias).then(function(data) {
         $scope.containerInfo = data.data;
       });
     }
@@ -63,7 +63,7 @@ angular.module('myApp.challenge', ['ngRoute', 'ngSanitize', 'hljs'])
     }
 
     $scope.stopContainer = function() {
-      VirtualmachineServices.stopContainer($scope.challenge.ContainerHostAlias, $scope.challenge.ContainerBaseName);
+      ContainerServices.stopContainer($scope.challenge.ContainerHostAlias, $scope.challenge.ContainerBaseName);
     }
 
     $scope.incSize = function(terminal) {
@@ -106,15 +106,15 @@ angular.module('myApp.challenge', ['ngRoute', 'ngSanitize', 'hljs'])
       }
       spinnerService.show('booksSpinner');
 
-      VirtualmachineServices.startContainerIfNecessary(challenge.ContainerHostAlias, challenge.ContainerBaseName).then(function(data) {
-        $scope.terminals[idx-1].term = VirtualmachineServices.getTerminal(t.height);
+      ContainerServices.startContainerIfNecessary(challenge.ContainerHostAlias, challenge.ContainerBaseName).then(function(data) {
+        $scope.terminals[idx-1].term = ContainerServices.getTerminal(t.height);
         $scope.terminals[idx-1].term.open(document.getElementById('console' + (idx)));
         var initialGeometry = $scope.terminals[idx-1].term.proposeGeometry(),
             cols = initialGeometry.cols,
             rows = initialGeometry.rows;
         $scope.terminals[idx-1].width = cols;
 
-        VirtualmachineServices.getWebsocketTerminal($scope.terminals[idx-1].term, challenge.ContainerHostAlias, challenge.ContainerBaseName, cols, rows);
+        ContainerServices.getWebsocketTerminal($scope.terminals[idx-1].term, challenge.ContainerHostAlias, challenge.ContainerBaseName, cols, rows);
 
         $scope.terminals[idx-1].term.on('destroy', function () {
           console.log("DDDDDDDDDDDD");

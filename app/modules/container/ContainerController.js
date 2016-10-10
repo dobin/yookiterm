@@ -1,35 +1,35 @@
 'use strict';
 
-angular.module('myApp.virtualmachine', ['ngRoute'])
+angular.module('myApp.container', ['ngRoute'])
     .config(['$routeProvider', function ($routeProvider) {
-        $routeProvider.when('/virtualmachine/:containerName', {
-            title: 'Virtualmachine',
-            templateUrl: 'modules/virtualmachine/virtualmachine.html',
-            controller: 'virtualmachinePageCtrl',
+        $routeProvider.when('/container/:containerName', {
+            title: 'Container',
+            templateUrl: 'modules/container/container.html',
+            controller: 'containerPageCtrl',
         })
         .when('/container', {
             title: 'Container',
-            templateUrl: 'modules/virtualmachine/container-list.html',
+            templateUrl: 'modules/container/container-list.html',
             controller: 'containerListCtrl',
             resolve: {
-                baseContainers: function (VirtualmachineServices) {
-                    return VirtualmachineServices.getBaseContainerList();
+                baseContainers: function (ContainerServices) {
+                    return ContainerServices.getBaseContainerList();
                 },
-                containers: function(VirtualmachineServices) {
-                  return VirtualmachineServices.getContainerList();
+                containers: function(ContainerServices) {
+                  return ContainerServices.getContainerList();
                 }
             }
         })
         .when('/container/:containerHostAlias/:containerBaseName/console', {
             title: 'Container Console',
-            templateUrl: 'modules/virtualmachine/container-console.html',
+            templateUrl: 'modules/container/container-console.html',
             controller: 'containerConsoleCtrl',
 /*            resolve: {
-                baseContainers: function (VirtualmachineServices) {
-                    return VirtualmachineServices.getBaseContainerList();
+                baseContainers: function (ContainerServices) {
+                    return ContainerServices.getBaseContainerList();
                 },
-                containers: function(VirtualmachineServices) {
-                  return VirtualmachineServices.getContainerList();
+                containers: function(ContainerServices) {
+                  return ContainerServices.getContainerList();
                 }
             }*/
         })
@@ -37,12 +37,12 @@ angular.module('myApp.virtualmachine', ['ngRoute'])
     }])
 
     .controller('containerConsoleCtrl', function ($scope, $routeParams, $filter, $location, $route,
-                                                 VirtualmachineServices)
+                                                 ContainerServices)
     {
         var containerHostAlias = $route.current.params.containerHostAlias;
         var containerBaseName = $route.current.params.containerBaseName;
 
-        VirtualmachineServices.getHostnameForAlias(containerHostAlias).then(function(data) {
+        ContainerServices.getHostnameForAlias(containerHostAlias).then(function(data) {
           var containerHostname = data.Hostname;
         });
 
@@ -56,15 +56,15 @@ angular.module('myApp.virtualmachine', ['ngRoute'])
         $scope.terminal = t;
         $scope.showAddTerminalButton = false;
 
-        VirtualmachineServices.startContainerIfNecessary(containerHostAlias, containerBaseName).then(function(data) {
-          $scope.terminal.term = VirtualmachineServices.getTerminal(t.height);
+        ContainerServices.startContainerIfNecessary(containerHostAlias, containerBaseName).then(function(data) {
+          $scope.terminal.term = ContainerServices.getTerminal(t.height);
           $scope.terminal.term.open(document.getElementById('console'));
           var initialGeometry = $scope.terminal.term.proposeGeometry(),
               cols = initialGeometry.cols,
               rows = initialGeometry.rows;
           $scope.terminal.width = 80;
 
-          VirtualmachineServices.getWebsocketTerminal($scope.terminal.term, containerHostAlias, containerBaseName, cols, rows);
+          ContainerServices.getWebsocketTerminal($scope.terminal.term, containerHostAlias, containerBaseName, cols, rows);
 
           $scope.terminal.term.on('destroy', function () {
             console.log("DDDDDDDDDDDD");
@@ -93,20 +93,20 @@ angular.module('myApp.virtualmachine', ['ngRoute'])
 
     })
 
-    .controller('virtualmachinePageCtrl', function ($scope, $routeParams, $filter, $location,
-                                                 VirtualmachineServices) {
+    .controller('containerPageCtrl', function ($scope, $routeParams, $filter, $location,
+                                                 ContainerServices) {
 
     })
 
 
     .controller('containerListCtrl', function ($scope, $routeParams, $filter, $location, $window,
-                                                 VirtualmachineServices, baseContainers, containers)
+                                                 ContainerServices, baseContainers, containers)
     {
       $scope.baseContainers = baseContainers.data;
       $scope.containers = containers;
 
-      $scope.startVirtualmachine = function(container) {
-        VirtualmachineServices.startContainerIfNecessary(container.ContainerHost.HostnameAlias, container.ContainerBaseName).then(function(data) {
+      $scope.startContainer = function(container) {
+        ContainerServices.startContainerIfNecessary(container.ContainerHost.HostnameAlias, container.ContainerBaseName).then(function(data) {
           for(var n=0; n<$scope.containers.length; n++) {
             if ($scope.containers[n] == container) {
               //$scope.containers[n].ContainreHostAlias = data.data.

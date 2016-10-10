@@ -34,7 +34,7 @@
       <i ng-if="container.ContainerStatus != '0'" class="glyphicon glyphicon-remove-sign"></i>
     </td>
 		<td>
-			<button ng-if="container.ContainerStatus != '0'" class="btn btn-primary" type="button" ng-click="startVirtualmachine(container)">Start VM</button>
+			<button ng-if="container.ContainerStatus != '0'" class="btn btn-primary" type="button" ng-click="startContainer(container)">Start VM</button>
 			<button ng-if="container.ContainerStatus == '0'" class="btn btn-primary" type="button" ng-click="startConsole(container)">Terminal</button>
     </td>
 	</tr>

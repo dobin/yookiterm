@@ -12,11 +12,11 @@ angular.module('myApp.admin', ['ngRoute'])
 
 
 .controller('adminPageCtrl', function ($scope, $window, $routeParams, $filter, $location,
-                                             AdminServices, VirtualmachineServices)
+                                             AdminServices, ContainerServices)
 {
   $scope.output = "";
   $scope.adminCmd = function(cmd) {
-    VirtualmachineServices.adminCmd(cmd).then(function(data) {
+    ContainerServices.adminCmd(cmd).then(function(data) {
       var res = [];
       for(var n=0; n<data.length; n++) {
         if (data[n].data.error.Stderr) {

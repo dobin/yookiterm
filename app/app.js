@@ -7,7 +7,7 @@ angular.module('myApp', [
   'ui.bootstrap',
   'myApp.version',
   'myApp.challenge',
-  'myApp.virtualmachine',
+  'myApp.container',
   'myApp.setting',
   'myApp.authentication',
   'myApp.staticpages',

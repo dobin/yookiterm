@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('myApp.virtualmachine')
-    .factory('VirtualmachineServices', ['$http', '$q', '$timeout', 'SettingServices', 'AuthenticationServices',
+angular.module('myApp.container')
+    .factory('ContainerServices', ['$http', '$q', '$timeout', 'SettingServices', 'AuthenticationServices',
         function ($http, $q, $timeout, SettingServices, AuthenticationServices) {
             var obj = {};
 
