@@ -1,7 +1,8 @@
-<table class="table table-condensed">
+<table class="table">
 	<thead>
 		<th>ID</th>
 		<th>Title</th>
+		<th>Description</th>
 		<th>Arch</th>
 		<th>Bits</th>
 		<th>ASLR</th>
@@ -16,14 +17,17 @@
 			</a>
 		</td>
 		<td>
-				
+			{{challenge.Description}}
 		</td>
 		<td>
-			{{challenge.ContainerArch}}
+			{{challenge.ContainerHost.Arch}}
 		</td>
 		<td>
-			<i ng-if="challenge.ContainerAslr == '1'" class="glyphicon glyphicon-ok"></i>
-      <i ng-if="challenge.ContainerAslr == '0'" class="glyphicon glyphicon-remove"></i>
+			{{challenge.BaseContainer.Bits}}
+		</td>
+		<td>
+			<i ng-if="challenge.ContainerHost.Aslr == '1'" class="glyphicon glyphicon-ok"></i>
+      <i ng-if="challenge.ContainerHost.Aslr == '0'" class="glyphicon glyphicon-remove"></i>
 		</td>
 	</tr>
 </table>

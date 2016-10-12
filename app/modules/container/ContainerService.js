@@ -1,9 +1,11 @@
 'use strict';
 
 angular.module('myApp.container')
-    .factory('ContainerServices', ['$http', '$q', '$timeout', 'SettingServices', 'AuthenticationServices',
-        function ($http, $q, $timeout, SettingServices, AuthenticationServices) {
+    .factory('ContainerServices', ['$http', '$q', '$timeout', '$cacheFactory', 'SettingServices', 'AuthenticationServices',
+        function ($http, $q, $timeout, $cacheFactory, SettingServices, AuthenticationServices) {
             var obj = {};
+            var cache = $cacheFactory('containerServiceCache');
+
 
             // yookiterm-server: Get available base container
             obj.getBaseContainerList = function() {
@@ -11,11 +13,13 @@ angular.module('myApp.container')
               return $http.get(url);
             }
 
+
             // yookiterm-server: Get available container hosts
             obj.getContainerHostList = function() {
               var url = SettingServices.getSrvApiUrl() + "/containerHosts";
               return $http.get(url);
             }
+
 
             // yookiterm-server + yookiterm-lxdserver:
             // Get all container
@@ -107,13 +111,6 @@ angular.module('myApp.container')
               });
             }
 
-/*
-            obj.getTerminalForContainer = function(containerBaseName) {
-              obj.startContainerIfNecessary(containerBaseName).then(function(data) {
-                return data;
-              });
-            }
-*/
 
             obj.getHostnameForAlias = function(containerHostAlias) {
               var containerHostsUrl = SettingServices.getSrvApiUrl() + "/containerHosts";

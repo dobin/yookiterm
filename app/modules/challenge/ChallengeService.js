@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('myApp.challenge')
-    .factory('ChallengeServices', ['$http', '$q', '$timeout', 'SettingServices',
-        function ($http, $q, $timeout, SettingServices) {
+    .factory('ChallengeServices', ['$http', '$q', '$timeout', '$cacheFactory', 'SettingServices', 'ContainerServices',
+        function ($http, $q, $timeout, $cacheFactory, SettingServices, ContainerServices) {
             var obj = {};
 
 						obj.getChallenge = function (challengeId) {

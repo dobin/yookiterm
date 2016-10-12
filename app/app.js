@@ -15,14 +15,17 @@ angular.module('myApp', [
 ])
 
 
-.config(['$locationProvider', '$routeProvider', 'hljsServiceProvider',
-function($locationProvider, $routeProvider, hljsServiceProvider) {
+.config(['$locationProvider', '$routeProvider', '$httpProvider', 'hljsServiceProvider',
+function($locationProvider, $routeProvider, $httpProvider, hljsServiceProvider) {
   hljsServiceProvider.setOptions({
     // replace tab with 4 spaces
     tabReplace: '    '
   });
 
   hljs.initHighlighting();
+
+  // Lets cache all the things
+  $httpProvider.defaults.cache = true;
 
   $routeProvider.otherwise({redirectTo: '/staticpages/index'});
 }])
