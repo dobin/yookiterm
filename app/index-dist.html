@@ -9,16 +9,13 @@
   <title>Yookiterm</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- build:css css/myjmh.css -->
+
   <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
   <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">
   <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="bower_components/highlight/src/styles/androidstudio.css">
   <link rel="stylesheet" href="components/terminal/xterm.css">
   <link rel="stylesheet" href="app.css">
-  <!-- endbuild -->
-
-
 </head>
 
 <body>
@@ -45,7 +42,6 @@
 
   <div ng-view></div>
 
-  <!-- build:js js/myjmh.min.js -->
   <script src="components/terminal/xterm.min.js"></script>
   <script src="components/terminal/xterm-addon-fit.js"></script>
 
@@ -64,25 +60,9 @@
   <script src="components/highlight.min.js"></script>
   <script src="bower_components/angular-highlightjs/build/angular-highlightjs.min.js"></script>
 
-  <script src="app.js"></script>
-
-  <script src="modules/staticpages/StaticpagesController.js"></script>
-  <script src="modules/admin/AdminController.js"></script>
-  <script src="modules/admin/AdminServices.js"></script>
-  <script src="modules/authentication/AuthenticationController.js"></script>
-  <script src="modules/authentication/AuthenticationServices.js"></script>
-  <script src="modules/setting/SettingsController.js"></script>
-  <script src="modules/setting/SettingsServices.js"></script>
-  <script src="modules/challenge/ChallengeController.js"></script>
-  <script src="modules/challenge/ChallengeService.js"></script>
-  <script src="modules/container/ContainerController.js"></script>
-  <script src="modules/container/ContainerService.js"></script>
+  <script src="app-min.js"></script>
 
   <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
-  <script src="components/version/version.js"></script>
-  <script src="components/version/version-directive.js"></script>
-  <script src="components/version/interpolate-filter.js"></script>
-  <!-- endbuild -->
 
 </body>
 </html>
