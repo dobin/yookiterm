@@ -5,7 +5,6 @@ angular.module('myApp', [
   'hljs',
   'angularSpinners',
   'ui.bootstrap',
-  'myApp.version',
   'myApp.challenge',
   'myApp.container',
   'myApp.setting',
