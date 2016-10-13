@@ -2,6 +2,8 @@
 
 angular.module('myApp.admin', ['ngRoute'])
     .config(['$routeProvider', function ($routeProvider) {
+      "ngInject";
+
         $routeProvider.when('/admin', {
             title: 'Admin',
             templateUrl: 'modules/admin/admin.html',
@@ -14,6 +16,8 @@ angular.module('myApp.admin', ['ngRoute'])
 .controller('adminPageCtrl', function ($scope, $window, $routeParams, $filter, $location,
                                              AdminServices, ContainerServices)
 {
+  "ngInject";
+
   $scope.output = "";
   $scope.adminCmd = function(cmd) {
     ContainerServices.adminCmd(cmd).then(function(data) {

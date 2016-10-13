@@ -14,6 +14,8 @@ angular.module('myApp.authentication', ['ngRoute'])
     .controller('authenticationPageCtrl', function ($scope, $window, $routeParams, $filter, $location,
                                                  AuthenticationServices)
 		 {
+       "ngInject";
+
        $scope.error = "";
        $scope.loading = false;
 

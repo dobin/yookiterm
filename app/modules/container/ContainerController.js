@@ -39,6 +39,8 @@ angular.module('myApp.container', ['ngRoute'])
     .controller('containerConsoleCtrl', function ($scope, $routeParams, $filter, $location, $route,
                                                  ContainerServices)
     {
+      "ngInject";
+
         var containerHostAlias = $route.current.params.containerHostAlias;
         var containerBaseName = $route.current.params.containerBaseName;
 
@@ -94,7 +96,9 @@ angular.module('myApp.container', ['ngRoute'])
     })
 
     .controller('containerPageCtrl', function ($scope, $routeParams, $filter, $location,
-                                                 ContainerServices) {
+                                                 ContainerServices)
+    {
+      "ngInject";
 
     })
 
@@ -102,6 +106,8 @@ angular.module('myApp.container', ['ngRoute'])
     .controller('containerListCtrl', function ($scope, $routeParams, $filter, $location, $window,
                                                  ContainerServices, baseContainers, containers)
     {
+      "ngInject";
+
       $scope.baseContainers = baseContainers.data;
       $scope.containers = containers;
 

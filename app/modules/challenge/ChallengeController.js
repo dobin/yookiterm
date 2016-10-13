@@ -29,6 +29,8 @@ angular.module('myApp.challenge', ['ngRoute', 'ngSanitize', 'hljs'])
     .controller('challengeListCtrl', function ($scope, $routeParams, $filter, $location, $route, $interval,
                 challenges)
     {
+      "ngInject";
+
       $scope.challenges = challenges.data;
    	})
 
@@ -36,6 +38,8 @@ angular.module('myApp.challenge', ['ngRoute', 'ngSanitize', 'hljs'])
   .controller('challengeViewCtrl', function ($scope, $routeParams, $filter, $location, $route, $interval, $sce,
                                               spinnerService, ContainerServices, AuthenticationServices, challenge)
   {
+    "ngInject";
+
     challenge = challenge.data;
     $scope.challenge = challenge;
     $scope.showAddTerminalButton = true;

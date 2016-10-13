@@ -13,6 +13,7 @@ angular.module('myApp.staticpages', ['ngRoute'])
 
 .controller('staticpagesIndexCtrl', function ($scope, $window, $routeParams, $filter, $location)
 {
+  "ngInject";
 
 })
 
