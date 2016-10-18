@@ -1,5 +1,4 @@
 <div class="container">
-
           <div class="row" id="challenge-menu">
             <div class="col-md-7">
               <button class="btn btn-primary btn-xs" type="button" ng-click="getTerminal()" ng-disabled="! showAddTerminalButton">
@@ -30,17 +29,17 @@
             </div>
 					</div>
 
-          <div class="row" ng-repeat="terminal in terminals">
+          <div class="row" >
             <div class="col-md-12" class="terminal">
-              <div id="terminal" style="background-color:black;"></div>
+              <div id="console" style="background-color:black;"></div>
             </div>
             <div class="col-md-12"  id="terminal">
               <button class="btn btn-primary btn-xs" type="button" ng-click="incSize(terminal)">
                 <i class="glyphicon glyphicon-plus-sign"></i>
               </button>
               <button class="btn btn-primary btn-xs" type="button" ng-click="decSize(terminal)">
-              <i class="glyphicon glyphicon-minus-sign"></i>
-            </button>
+                <i class="glyphicon glyphicon-minus-sign"></i>
+              </button>
               <button class="btn btn-primary btn-xs" type="button" ng-click="reload(terminal)">
                 <i class="glyphicon glyphicon-refresh"></i>
               </button>
