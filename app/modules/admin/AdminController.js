@@ -18,17 +18,29 @@ angular.module('myApp.admin', ['ngRoute'])
 {
   "ngInject";
 
-  $scope.output = "";
+  $scope.feedbacks = [];
+
   $scope.adminCmd = function(cmd) {
     ContainerServices.adminCmd(cmd).then(function(data) {
       var res = [];
+
       for(var n=0; n<data.length; n++) {
-        if (data[n].data.error.Stderr) {
-          data[n].data.error.Stderr = btoa(data[n].data.error.Stderror);
+        var entry = {};
+
+        if (! data[n]) {
+          entry["stderr"] = "host didnt answer";
+        } else {
+          entry["url"] = data[n].config.url;
+          entry["stderr"] = data[n].data.error.Stderr;
+          entry["stdout"] = data[n].data.output;
+          entry["stderr"] = atob(entry["stderr"]);
+          entry["host"] = data[n].data.host;
         }
-        res.push(data[n].data);
+
+        res.push(entry);
       }
-      $scope.output = JSON.stringify(res);
+
+      $scope.feedbacks = res;
     });
   }
 })

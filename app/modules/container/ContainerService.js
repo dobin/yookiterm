@@ -104,7 +104,7 @@ angular.module('myApp.container')
 
                 var promises = pubContainerHosts.map(function(containerHost) {
                   var url = "//" + containerHost.Hostname + "/1.0/admin/exec/" + cmd;
-                  return $http.get(url);
+                  return $http.get(url).catch(function(){});
                 });
 
                 return $q.all(promises);

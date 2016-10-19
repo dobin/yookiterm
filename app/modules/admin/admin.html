@@ -1,17 +1,24 @@
-Admin:
 <div class="ng-row">
+  <div class="row">
+    <div class="col-md-2">Firewall: </div>
+    <div class="col-md-10">
+      <button class="btn btn-xs btn-primary" type="button" ng-click="adminCmd('allowfw')">Allow</button>
+      <button class="btn btn-xs btn-primary" type="button" ng-click="adminCmd('blockfw')">Block</button>
+    </div>
 
-  <div class="col-md-12">
-    <ul>
-      <li> <a ng-click="adminCmd('allowfw')">Allow Internet traffic</a>
-        / <a ng-click="adminCmd('blockfw')">Forbid Internet traffic</a></li>
-    	<li> <a ng-click="adminCmd('checkout')">Checkout challenge data (will start/stop all basecontainer)</a></li>
-    	<li> Open a basecontainer (?)</li>
-    	<li> </li>
-    </uL>
+    <div class="col-md-2">Checkout Challenge data</div>
+    <div class="col-md-10">
+      <button class="btn btn-xs btn-primary" type="button" ng-click="adminCmd('checkout')">Checkout</button>
+    </div>
   </div>
 
   <div class="col-md-12">
-    <textarea ng-model="output" class="ta"></textarea>
+    <table class="table">
+      <tr ng-repeat="feedback in feedbacks">
+        <td> {{feedback.host}}</td>
+        <td> {{feedback.stdout}} </td>
+        <td> {{feedback.stderr}}</td>
+      </tr>
+    </table>
   </div>
 </div>
