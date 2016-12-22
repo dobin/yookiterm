@@ -146,7 +146,9 @@ angular.module('myApp.container')
               return obj.getHostnameForAlias(containerHostAlias).then(function(containerHost) {
                 var url = "//" + containerHost.Hostname + "/1.0/container/" + containerBaseName;
                 return $http.get(url).then(function(data) {
-                  var sshPort = data.data.sshPort;
+                  var sshPort = parseInt(data.data.sshPort);
+                  sshPort += parseInt(containerHost.SshBasePort);
+                  data.data.sshPort = sshPort.toString();
                   return data;
                 });
               })
