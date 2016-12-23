@@ -89,6 +89,7 @@ angular.module('myApp.challenge', ['ngRoute', 'ngSanitize', 'hljs'])
         return;
       }
 
+      spinnerService.show('booksSpinner');
       var t = {
         height: 25,
         width: null,
@@ -108,7 +109,6 @@ angular.module('myApp.challenge', ['ngRoute', 'ngSanitize', 'hljs'])
         idx = $scope.terminals.push(t);
         $scope.showAddTerminalButton = false;
       }
-      spinnerService.show('booksSpinner');
 
       ContainerServices.startContainerIfNecessary(challenge.ContainerHostAlias, challenge.ContainerBaseName).then(function(data) {
         $scope.terminals[idx-1].term = ContainerServices.getTerminal(t.height);
@@ -139,11 +139,19 @@ angular.module('myApp.challenge', ['ngRoute', 'ngSanitize', 'hljs'])
 
           fetch(url, {method: 'POST'});*/
         });
+      }, function(error) {
+        BootstrapDialog.alert('Error, the yookiterm-LXD server is down. Cannot create terminal.');
+        spinnerService.hide('booksSpinner');
+        $scope.showAddTerminalButton = true;
+        $scope.terminals.pop();
+        terminalCount--;
       }).finally(function () {
         $scope.terminals[idx-1].term.fit();
         spinnerService.hide('booksSpinner');
         $scope.showAddTerminalButton = true;
-      })
+      }).catch(function(data) {
+        console.log("ERR2");
+      });
     }
  	})
 
