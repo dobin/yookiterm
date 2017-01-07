@@ -1,45 +1,48 @@
-
 <table class="table table-condensed">
-	<thead>
+    <thead>
     <tr>
-	    <th>containerBasename</th>
+        <th>containerBasename</th>
         <th>hostalias</th>
-	    <th>expiry</th>
+        <th>expiry</th>
         <th>hard expiry</th>
-	    <th>Arch</th>
+        <th>Arch</th>
         <th>Bits</th>
         <th>aslr</th>
-	    <th>Running?</th>
-	    <th>Action</th>
+        <th>Running?</th>
+        <th>Action</th>
     </tr>
     </thead>
 
-	<tr ng-repeat="container in containers">
+    <tr ng-repeat="container in containers">
 
-	  <td>{{container.ContainerBaseName}} </td>
-    <td>{{container.ContainerHostAlias}}</td>
-		<td>
-      <span ng-if="container.ContainerExpiry">{{container.ContainerExpiry * 1000 | date:'yyyy-MM-dd HH:mm:ss'}}</span>
+        <td>{{container.ContainerBaseName}}</td>
+        <td>{{container.ContainerHostAlias}}</td>
+        <td>
+            <span ng-if="container.ContainerExpiry">{{container.ContainerExpiry * 1000 | date:'yyyy-MM-dd HH:mm:ss'}}</span>
         </td>
         <td>
-        <span ng-if="container.ContainerExpiry">{{container.ContainerExpiry * 1000 | date:'yyyy-MM-dd HH:mm:ss'}}</span>
-      </td>
-		<td>{{container.ContainerHost.Arch}}</td>
-    <td>{{container.BaseContainer.Bits}}</td>
-    <td>
-      <i ng-if="container.ContainerHost.Aslr" class="glyphicon glyphicon-ok"></i>
-      <i ng-if="! container.ContainerHost.Aslr" class="glyphicon glyphicon-remove"></i>
-    </td>
-
-		<td>
-      <i ng-if="container.ContainerStatus == '0'" class="glyphicon glyphicon-ok-sign"></i>
-      <i ng-if="container.ContainerStatus != '0'" class="glyphicon glyphicon-remove-sign"></i>
-    </td>
-		<td>
-			<button ng-if="container.ContainerStatus != '0'" class="btn btn-primary" type="button" ng-click="startContainer(container)">Start VM</button>
-			<button ng-if="container.ContainerStatus == '0'" class="btn btn-primary" type="button" ng-click="startConsole(container)">Terminal</button>
+            <span ng-if="container.ContainerExpiry">{{container.ContainerExpiry * 1000 | date:'yyyy-MM-dd HH:mm:ss'}}</span>
         </td>
-	</tr>
+        <td>{{container.ContainerHost.Arch}}</td>
+        <td>{{container.BaseContainer.Bits}}</td>
+        <td>
+            <i ng-if="container.ContainerHost.Aslr" class="glyphicon glyphicon-ok"></i>
+            <i ng-if="! container.ContainerHost.Aslr" class="glyphicon glyphicon-remove"></i>
+        </td>
+
+        <td>
+            <i ng-if="container.ContainerStatus == '0'" class="glyphicon glyphicon-ok-sign"></i>
+            <i ng-if="container.ContainerStatus != '0'" class="glyphicon glyphicon-remove-sign"></i>
+        </td>
+        <td>
+            <button ng-if="container.ContainerStatus != '0'" class="btn btn-primary" type="button"
+                    ng-click="startContainer(container)">Start VM
+            </button>
+            <button ng-if="container.ContainerStatus == '0'" class="btn btn-primary" type="button"
+                    ng-click="startConsole(container)">Terminal
+            </button>
+        </td>
+    </tr>
 </table>
 
 
@@ -47,6 +50,6 @@
 
 <b>Basecontainer:</b>
 <div class="row" ng-repeat="baseContainer in baseContainers">
-  <div class="col-md-2">Base Container Name: </div>
-  <div class="col-md-10">{{baseContainer.Name}}</div>
+    <div class="col-md-2">Base Container Name:</div>
+    <div class="col-md-10">{{baseContainer.Name}}</div>
 </div>
