@@ -5,18 +5,18 @@ angular.module('myApp.challenge')
         function ($http, $q, $timeout, $cacheFactory, SettingServices, ContainerServices) {
             var obj = {};
 
-						obj.getChallenge = function (challengeId) {
-							return $http.get( SettingServices.getSrvApiUrl() + "/challenge/" + challengeId).success(function(data) {
-                var converter = new showdown.Converter();
-                data.inputHtml = converter.makeHtml(data.Text);
-                return data;
-              });
+            obj.getChallenge = function (challengeId) {
+                return $http.get(SettingServices.getSrvApiUrl() + "/challenge/" + challengeId).success(function (data) {
+                    var converter = new showdown.Converter();
+                    data.inputHtml = converter.makeHtml(data.Text);
+                    return data;
+                });
             };
 
-            obj.getChallenges = function() {
-              return $http.get( SettingServices.getSrvApiUrl() + "/challenges");
+            obj.getChallenges = function () {
+                return $http.get(SettingServices.getSrvApiUrl() + "/challenges");
             }
 
-						return obj;
+            return obj;
         }])
 ;

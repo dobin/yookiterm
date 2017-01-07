@@ -12,35 +12,34 @@ angular.module('myApp.authentication', ['ngRoute'])
 
 
     .controller('authenticationPageCtrl', function ($scope, $window, $routeParams, $filter, $location,
-                                                 AuthenticationServices)
-		 {
-       "ngInject";
+                                                    AuthenticationServices) {
+        "ngInject";
 
-       $scope.error = "";
-       $scope.loading = false;
+        $scope.error = "";
+        $scope.loading = false;
 
-			 $scope.isAuthed = function() {
-				 return false;
-			 }
+        $scope.isAuthed = function () {
+            return false;
+        }
 
-			 $scope.login = function() {
-         $scope.loading = true;
-         AuthenticationServices.login($scope.username, $scope.password).then(function (data) {
+        $scope.login = function () {
+            $scope.loading = true;
+            AuthenticationServices.login($scope.username, $scope.password).then(function (data) {
 
-           if (data.data.authenticated == true) {
-              $scope.error = "";
-              $scope.loading = false;
-              AuthenticationServices.saveToken(data.data.token);
-              $scope.error = "Authentication successful"
+                if (data.data.authenticated == true) {
+                    $scope.error = "";
+                    $scope.loading = false;
+                    AuthenticationServices.saveToken(data.data.token);
+                    $scope.error = "Authentication successful"
 
-              $window.location = "/";
-              //$window.location.reload();
-           } else {
-              $scope.error = 'Username or password is incorrect';
-              $scope.loading = false;
-           }
-         });
-      };
+                    $window.location = "/";
+                    //$window.location.reload();
+                } else {
+                    $scope.error = 'Username or password is incorrect';
+                    $scope.loading = false;
+                }
+            });
+        };
 
     })
 
