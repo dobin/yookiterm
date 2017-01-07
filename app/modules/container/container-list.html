@@ -1,17 +1,17 @@
 
 <table class="table table-condensed">
 	<thead>
-	  <th>containerBasename</th>
-    <th>hostalias</th>
-	  <th>expiry</th>
-	  <th>username</th>
-    <th>password</th>
-		<th>Arch</th>
-    <th>Bits</th>
-    <th>aslr</th>
-		<th>Running?</th>
-		<th>Action</th>
-  </thead>
+    <tr>
+	    <th>containerBasename</th>
+        <th>hostalias</th>
+	    <th>expiry</th>
+	    <th>Arch</th>
+        <th>Bits</th>
+        <th>aslr</th>
+	    <th>Running?</th>
+	    <th>Action</th>
+    </tr>
+    </thead>
 
 	<tr ng-repeat="container in containers">
 
@@ -20,8 +20,6 @@
 		<td>
       <span ng-if="container.ContainerExpiry">{{container.ContainerExpiry * 1000 | date:'yyyy-MM-dd HH:mm:ss'}}</span>
       </td>
-		<td>{{container.ContainerUsername}}</td>
-		<td>{{container.ContainerPassword}}</td>
 		<td>{{container.ContainerHost.Arch}}</td>
     <td>{{container.BaseContainer.Bits}}</td>
     <td>
@@ -36,7 +34,7 @@
 		<td>
 			<button ng-if="container.ContainerStatus != '0'" class="btn btn-primary" type="button" ng-click="startContainer(container)">Start VM</button>
 			<button ng-if="container.ContainerStatus == '0'" class="btn btn-primary" type="button" ng-click="startConsole(container)">Terminal</button>
-    </td>
+        </td>
 	</tr>
 </table>
 
