@@ -45,7 +45,7 @@ angular.module('myApp.challenge', ['ngRoute', 'ngSanitize', 'hljs'])
     $scope.showAddTerminalButton = true;
     $scope.isAdmin = AuthenticationServices.isAdmin();
 
-    $scope.terminals = [];
+    $scope.terminals = [{id:0}, {id:1}, {id:2}];
 
     var terminalCount = 0;
     var terminalHeight = 25;
@@ -103,20 +103,29 @@ angular.module('myApp.challenge', ['ngRoute', 'ngSanitize', 'hljs'])
       } else {
         terminalCount++;
         t.id = terminalCount;
+        idx = terminalCount;
         // Create a div to insert the term on
         // later with term.open
         // I just hope the page has been rendered until then...
-        idx = $scope.terminals.push(t);
+        //idx = $scope.terminals.push(t);
         $scope.showAddTerminalButton = false;
       }
 
       ContainerServices.startContainerIfNecessary(challenge.ContainerHostAlias, challenge.ContainerBaseName).then(function(data) {
+        console.log("IDX :" + (idx-1));
         $scope.terminals[idx-1].term = ContainerServices.getTerminal(t.height);
+
+        var dd = document.getElementById('console' + (idx));
+        if (dd == null) {
+            console.log("A: " + document.getElementById('console' + (idx)));
+        }
+
         $scope.terminals[idx-1].term.open(document.getElementById('console' + (idx)));
         var initialGeometry = $scope.terminals[idx-1].term.proposeGeometry(),
             cols = initialGeometry.cols,
             rows = initialGeometry.rows;
         $scope.terminals[idx-1].width = cols;
+        $scope.terminals[idx-1].show = true;
 
         ContainerServices.getWebsocketTerminal($scope.terminals[idx-1].term, challenge.ContainerHostAlias, challenge.ContainerBaseName, cols, rows);
 
