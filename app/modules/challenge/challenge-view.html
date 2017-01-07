@@ -1,16 +1,16 @@
 <script type="text/ng-template" id="myPopoverTemplate.html">
     <div>{{dynamicPopover.content}}</div>
     <div class="form-group">
-      <label>Host: </label> container.exploit.courses
+        <label>Host: </label> container.exploit.courses
     </div>
     <div class="form-group">
-      <label>Port: </label> {{containerInfo.sshPort}}
+        <label>Port: </label> {{containerInfo.sshPort}}
     </div>
     <div class="form-group">
-      <label>CMD: </label> ssh -l root -p {{containerInfo.sshPort}} container.exploit.courses
+        <label>CMD: </label> ssh -l root -p {{containerInfo.sshPort}} container.exploit.courses
     </div>
     <div class="form-group">
-      <label>Expires: </label> {{containerInfo.expiry * 1000 | date:'yyyy-MM-dd HH:mm:ss' }}
+        <label>Expires: </label> {{containerInfo.expiry * 1000 | date:'yyyy-MM-dd HH:mm:ss' }}
     </div>
     <div class="form-group">
         <label> Hard Epiry Date: </label> {{containerInfo.expiryHard * 1000 | date:'yyyy-MM-dd HH:mm:ss' }}
@@ -19,17 +19,17 @@
     <hr>
 
     <div class="form-group">
-      <label>Container:</label> {{challenge.ContainerBaseName}}
+        <label>Container:</label> {{challenge.ContainerBaseName}}
     </div>
 
     <div class="form-group">
-      <label>ASLR:</label>
-      <i ng-if="challenge.ContainerHost.Aslr" class="glyphicon glyphicon-ok"></i>
-      <i ng-if="! challenge.ContainerHost.Aslr" class="glyphicon glyphicon-remove"></i>
+        <label>ASLR:</label>
+        <i ng-if="challenge.ContainerHost.Aslr" class="glyphicon glyphicon-ok"></i>
+        <i ng-if="! challenge.ContainerHost.Aslr" class="glyphicon glyphicon-remove"></i>
     </div>
 
     <div class="form-group">
-      <label>Architecture: </label> {{challenge.ContainerHost.Arch}}
+        <label>Architecture: </label> {{challenge.ContainerHost.Arch}}
     </div>
 </script>
 
@@ -38,61 +38,62 @@
     <div class="row">
 
         <div class="col-md-6" id="left">
-          <div class="row" id="challenge-menu">
-            <div class="col-md-9">
-              <button class="btn btn-primary btn-xs" type="button" ng-click="getTerminal()" ng-disabled="! showAddTerminalButton">
-                <i class="glyphicon glyphicon-plus"></i>
-                Add Terminal
-              </button>
-              <button ng-if="isAdmin" class="btn btn-primary btn-xs" type="button" ng-click="stopContainer()">
-                Stop Container
-              </button>
+            <div class="row" id="challenge-menu">
+                <div class="col-md-9">
+                    <button class="btn btn-primary btn-xs" type="button" ng-click="getTerminal()"
+                            ng-disabled="! showAddTerminalButton">
+                        <i class="glyphicon glyphicon-plus"></i>
+                        Add Terminal
+                    </button>
+                    <button ng-if="isAdmin" class="btn btn-primary btn-xs" type="button" ng-click="stopContainer()">
+                        Stop Container
+                    </button>
+                </div>
+
+                <div class="col-md-1">
+                    <spinner name="booksSpinner" img-src="components/spinner.gif"></spinner>
+                </div>
+
+                <div class="col-md-2">
+                    <button uib-popover-template="'myPopoverTemplate.html'" ng-click="showContainerInfo()"
+                            type="button" class="btn btn-primary btn-xs" popover-placement="bottom-right">
+                        Container Info
+                    </button>
+                </div>
             </div>
 
-            <div class="col-md-1">
-              <spinner name="booksSpinner" img-src="components/spinner.gif"></spinner>
+            <div class="row" ng-repeat="terminal in terminals">
+                <div class="col-md-12" class="terminal">
+                    <div id="{{'console' + terminal.id}}" style="background-color:black;"></div>
+                </div>
+                <div class="col-md-12" id="terminal" ng-show="terminal.show">
+                    <button class="btn btn-primary btn-xs" type="button" ng-click="incSize(terminal)">
+                        <i class="glyphicon glyphicon-plus-sign"></i>
+                    </button>
+                    <button class="btn btn-primary btn-xs" type="button" ng-click="decSize(terminal)">
+                        <i class="glyphicon glyphicon-minus-sign"></i>
+                    </button>
+                    <button class="btn btn-primary btn-xs" type="button" ng-click="reload(terminal)">
+                        <i class="glyphicon glyphicon-refresh"></i>
+                    </button>
+                </div>
             </div>
-
-            <div class="col-md-2">
-              <button uib-popover-template="'myPopoverTemplate.html'" ng-click="showContainerInfo()"
-                  type="button" class="btn btn-primary btn-xs" popover-placement="bottom-right">
-                 Container Info
-               </button>
-            </div>
-					</div>
-
-          <div class="row" ng-repeat="terminal in terminals">
-            <div class="col-md-12" class="terminal">
-              <div id="{{'console' + terminal.id}}" style="background-color:black;"></div>
-            </div>
-            <div class="col-md-12"  id="terminal" ng-show="terminal.show">
-              <button class="btn btn-primary btn-xs" type="button" ng-click="incSize(terminal)">
-                <i class="glyphicon glyphicon-plus-sign"></i>
-              </button>
-              <button class="btn btn-primary btn-xs" type="button" ng-click="decSize(terminal)">
-              <i class="glyphicon glyphicon-minus-sign"></i>
-            </button>
-              <button class="btn btn-primary btn-xs" type="button" ng-click="reload(terminal)">
-                <i class="glyphicon glyphicon-refresh"></i>
-              </button>
-            </div>
-          </div>
 
         </div>
 
 
         <div class="col-md-6" id="right">
-					<div class="row" id="challenge-menu">
-					&nbsp;<a ng-click="closeTextTab()">Close this tab</a>
-						|
-						<a ng-click="flipTabs()">Flip tab</a>
-					</div>
-
-          <div class="row" id="challenge-right">
-            <div class="col-md-12">
-				          <div mymarkdown ng-bind-html="challenge.inputHtml" class="preview"></div>
+            <div class="row" id="challenge-menu">
+                &nbsp;<a ng-click="closeTextTab()">Close this tab</a>
+                |
+                <a ng-click="flipTabs()">Flip tab</a>
             </div>
-          </div>
+
+            <div class="row" id="challenge-right">
+                <div class="col-md-12">
+                    <div mymarkdown ng-bind-html="challenge.inputHtml" class="preview"></div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
