@@ -1,82 +1,84 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html lang="en" ng-app="myApp" class="no-js"> <!--<![endif]-->
+<!--[if lt IE 7]><html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]><html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]><html lang="en" ng-app="myApp" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--><html lang="en" ng-app="myApp" class="no-js"> <!--<![endif]-->
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Yookiterm</title>
-  <meta name="description" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Yookiterm</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
-  <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">
-  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="bower_components/highlight/src/styles/androidstudio.css">
-  <link rel="stylesheet" href="bower_components/bootstrap3-dialog/dist/css/bootstrap-dialog.min.css">
-  <link rel="stylesheet" href="components/terminal/xterm.css">
-  <link rel="stylesheet" href="app.css">
+    <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
+    <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="bower_components/highlight/src/styles/androidstudio.css">
+    <link rel="stylesheet" href="bower_components/bootstrap3-dialog/dist/css/bootstrap-dialog.min.css">
+    <link rel="stylesheet" href="components/terminal/xterm.css">
+    <link rel="stylesheet" href="app.css">
 </head>
 
 <body>
 
-  <div ng-controller="menuCtrl">
+<div ng-controller="menuCtrl">
 
     <ul class="menu">
-      <li><a href="#/staticpages/index">Index</a></li>
-      <li ng-if="isAuthenticated" ><a href="#/challenges">Challenges</a></li>
-      <li ng-if="isAuthenticated"><a  href="#/container">Container</a></li>
-      <li ng-if="isAdmin">
-        <a  href="#/admin">Admin</a>
-      </li>
-      <li>
-        <a ng-if="! isAuthenticated" href="#/authentication/login">Login</a>
-        <span ng-if="isAuthenticated" ng-bind="loggedinUser"></span>
-      </li>
+        <li><a href="#/staticpages/index">Index</a></li>
+        <li><a href="#/challenges">Challenges</a></li>
+        <li><a href="#/slides">Slides</a></li>
+        <li ng-if="isAuthenticated"><a href="#/container">Container</a></li>
+        <li ng-if="isAdmin">
+            <a href="#/admin">Admin</a>
+        </li>
+        <li>
+            <a ng-if="! isAuthenticated" href="#/authentication/login">Login</a>
+            <span ng-if="isAuthenticated" ng-bind="loggedinUser"></span>
+        </li>
     </ul>
-  </div>
+</div>
 
-  <!--[if lt IE 7]>
-      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-  <![endif]-->
+<!--[if lt IE 7]>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+    your browser</a> to improve your experience.</p>
+<![endif]-->
 
-  <div ng-view></div>
+<div ng-view></div>
 
-  <script src="components/terminal/xterm.min.js"></script>
-  <script src="components/terminal/xterm-addon-fit.js"></script>
+<script src="components/terminal/xterm.min.js"></script>
+<script src="components/terminal/xterm-addon-fit.js"></script>
 
-  <script src="bower_components/angular/angular.min.js"></script>
-  <script src="bower_components/angular-route/angular-route.min.js"></script>
-  <script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+<script src="bower_components/angular/angular.min.js"></script>
+<script src="bower_components/angular-route/angular-route.min.js"></script>
+<script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
 
-  <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
-  <script src="bower_components/underscore/underscore-min.js"></script>
+<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+<script src="bower_components/underscore/underscore-min.js"></script>
 
-  <script src="bower_components/showdown/dist/showdown.min.js"></script>
-  <script src="bower_components/jquery/dist/jquery.min.js"></script>
-  <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-  <script src="bower_components/showdown/dist/showdown.min.js"></script>
-  <script src="bower_components/angular-spinners/dist/angular-spinners.min.js"></script>
-  <script src="components/highlight.min.js"></script>
-  <script src="bower_components/angular-highlightjs/build/angular-highlightjs.min.js"></script>
-  <script src="bower_components/bootstrap3-dialog/dist/js/bootstrap-dialog.min.js"></script>
+<script src="bower_components/showdown/dist/showdown.min.js"></script>
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="bower_components/showdown/dist/showdown.min.js"></script>
+<script src="bower_components/angular-spinners/dist/angular-spinners.min.js"></script>
+<script src="components/highlight.min.js"></script>
+<script src="bower_components/angular-highlightjs/build/angular-highlightjs.min.js"></script>
+<script src="bower_components/bootstrap3-dialog/dist/js/bootstrap-dialog.min.js"></script>
 
-  <script src="app.js"></script>
+<script src="app.js"></script>
 
-  <script src="modules/staticpages/StaticpagesController.js"></script>
-  <script src="modules/admin/AdminController.js"></script>
-  <script src="modules/admin/AdminServices.js"></script>
-  <script src="modules/authentication/AuthenticationController.js"></script>
-  <script src="modules/authentication/AuthenticationServices.js"></script>
-  <script src="modules/setting/SettingsController.js"></script>
-  <script src="modules/setting/SettingsServices.js"></script>
-  <script src="modules/challenge/ChallengeController.js"></script>
-  <script src="modules/challenge/ChallengeService.js"></script>
-  <script src="modules/container/ContainerController.js"></script>
-  <script src="modules/container/ContainerService.js"></script>
+<script src="modules/staticpages/StaticpagesController.js"></script>
+<script src="modules/admin/AdminController.js"></script>
+<script src="modules/admin/AdminServices.js"></script>
+<script src="modules/authentication/AuthenticationController.js"></script>
+<script src="modules/authentication/AuthenticationServices.js"></script>
+<script src="modules/setting/SettingsController.js"></script>
+<script src="modules/setting/SettingsServices.js"></script>
+<script src="modules/challenge/ChallengeController.js"></script>
+<script src="modules/challenge/ChallengeService.js"></script>
+<script src="modules/container/ContainerController.js"></script>
+<script src="modules/container/ContainerService.js"></script>
 
-  <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
+<script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
 
 </body>
 </html>
