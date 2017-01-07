@@ -5,6 +5,7 @@
 	    <th>containerBasename</th>
         <th>hostalias</th>
 	    <th>expiry</th>
+        <th>hard expiry</th>
 	    <th>Arch</th>
         <th>Bits</th>
         <th>aslr</th>
@@ -19,6 +20,9 @@
     <td>{{container.ContainerHostAlias}}</td>
 		<td>
       <span ng-if="container.ContainerExpiry">{{container.ContainerExpiry * 1000 | date:'yyyy-MM-dd HH:mm:ss'}}</span>
+        </td>
+        <td>
+        <span ng-if="container.ContainerExpiry">{{container.ContainerExpiry * 1000 | date:'yyyy-MM-dd HH:mm:ss'}}</span>
       </td>
 		<td>{{container.ContainerHost.Arch}}</td>
     <td>{{container.BaseContainer.Bits}}</td>
