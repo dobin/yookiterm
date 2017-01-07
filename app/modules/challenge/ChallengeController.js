@@ -43,7 +43,7 @@ angular.module('myApp.challenge', ['ngRoute', 'ngSanitize', 'hljs'])
         $scope.showAddTerminalButton = true;
         $scope.isAdmin = AuthenticationServices.isAdmin();
 
-        $scope.terminals = [{id: 0}, {id: 1}, {id: 2}];
+        $scope.terminals = [{id: 0}, {id: 1}, {id: 2}, {id: 3}];
 
         var terminalCount = 0;
 
@@ -96,9 +96,9 @@ angular.module('myApp.challenge', ['ngRoute', 'ngSanitize', 'hljs'])
             if (origTerminal) {
                 idx = origTerminal.id;
             } else {
-                terminalCount++;
                 t.id = terminalCount;
                 idx = terminalCount;
+                terminalCount++;
                 $scope.showAddTerminalButton = false;
             }
 
