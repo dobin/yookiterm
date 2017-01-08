@@ -1,5 +1,9 @@
 /* app css stylesheet */
 
+.myTerminal {
+  background-color: #300a24;
+}
+
 .menu {
   list-style: none;
   border-bottom: 0.1em solid black;

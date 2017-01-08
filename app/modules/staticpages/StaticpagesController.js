@@ -2,9 +2,13 @@
 
 angular.module('myApp.staticpages', ['ngRoute'])
 .config(['$routeProvider', function ($routeProvider) {
-    $routeProvider.when('/staticpages/index', {
+    $routeProvider.when('/index', {
         title: 'Staticpages',
         templateUrl: 'modules/staticpages/index.html',
+        controller: 'staticpagesIndexCtrl',
+    }).when('/slides', {
+        title: 'Slides',
+        templateUrl: 'modules/staticpages/slides.html',
         controller: 'staticpagesIndexCtrl',
     })
     ;

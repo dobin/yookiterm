@@ -43,6 +43,8 @@ angular.module('myApp.challenge', ['ngRoute', 'ngSanitize', 'hljs'])
         $scope.showAddTerminalButton = true;
         $scope.isAdmin = AuthenticationServices.isAdmin();
 
+        // Prepare our three-max terminals
+        // Se we can access it via jquery
         $scope.terminals = [{id: 0}, {id: 1}, {id: 2}, {id: 3}];
 
         var terminalCount = 0;
@@ -103,27 +105,27 @@ angular.module('myApp.challenge', ['ngRoute', 'ngSanitize', 'hljs'])
             }
 
             ContainerServices.startContainerIfNecessary(challenge.ContainerHostAlias, challenge.ContainerBaseName).then(function (data) {
-                $scope.terminals[idx - 1].term = ContainerServices.getTerminal(t.height);
+                $scope.terminals[idx].term = ContainerServices.getTerminal(t.height);
 
                 var dd = document.getElementById('console' + (idx));
                 if (dd == null) {
                     console.log("Error, could not find id");
                 }
 
-                $scope.terminals[idx - 1].term.open(document.getElementById('console' + (idx)));
-                var initialGeometry = $scope.terminals[idx - 1].term.proposeGeometry(),
+                $scope.terminals[idx].term.open(document.getElementById('console' + (idx)));
+                var initialGeometry = $scope.terminals[idx].term.proposeGeometry(),
                     cols = initialGeometry.cols,
                     rows = initialGeometry.rows;
-                $scope.terminals[idx - 1].width = cols;
-                $scope.terminals[idx - 1].show = true;
+                $scope.terminals[idx].width = cols;
+                $scope.terminals[idx].show = true;
 
-                ContainerServices.getWebsocketTerminal($scope.terminals[idx - 1].term, challenge.ContainerHostAlias, challenge.ContainerBaseName, cols, rows);
+                ContainerServices.getWebsocketTerminal($scope.terminals[idx].term, challenge.ContainerHostAlias, challenge.ContainerBaseName, cols, rows);
 
-                $scope.terminals[idx - 1].term.on('destroy', function () {
+                $scope.terminals[idx].term.on('destroy', function () {
                     console.log("Terminal Destroy");
                 });
 
-                $scope.terminals[idx - 1].term.on('resize', function (size) {
+                $scope.terminals[idx].term.on('resize', function (size) {
                     //console.log("Resize: C: " + size.cols + " R: " + size.rows);
 
                     var cols = size.cols;
@@ -145,7 +147,7 @@ angular.module('myApp.challenge', ['ngRoute', 'ngSanitize', 'hljs'])
                 $scope.terminals.pop();
                 terminalCount--;
             }).finally(function () {
-                $scope.terminals[idx - 1].term.fit();
+                $scope.terminals[idx].term.fit();
                 spinnerService.hide('booksSpinner');
                 $scope.showAddTerminalButton = true;
             }).catch(function (data) {
