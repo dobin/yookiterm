@@ -112,6 +112,21 @@ angular.module('myApp.container')
                 });
             }
 
+            obj.getLogs = function (cmd) {
+                return obj.getContainerHostList().then(function (data) {
+                    var pubContainerHosts = data.data;
+
+                    var promises = pubContainerHosts.map(function (containerHost) {
+                        var url = "//" + containerHost.Hostname + "/1.0/admin/logs";
+                        return $http.get(url).catch(function () {
+                        });
+                    });
+
+                    return $q.all(promises);
+                });
+            }
+
+
 
             obj.getHostnameForAlias = function (containerHostAlias) {
                 var containerHostsUrl = SettingServices.getSrvApiUrl() + "/containerHosts";
@@ -198,6 +213,15 @@ angular.module('myApp.container')
                         //sock.send(new Blob([data])); // not working
                     });
 
+                    sock.onerror = function (err) {
+                        console.error("A" + err);
+
+                    };
+
+                    sock.onclose = function (msg) {
+                        console.log('WebSocket closed');
+                        term.destroy();
+                    };
 
                     sock.onopen = function (e) {
                         sock.onmessage = function (msg) {
@@ -212,14 +236,6 @@ angular.module('myApp.container')
                             //} else {
                             term.write(d);
                             //}
-                        };
-
-                        sock.onclose = function (msg) {
-                            console.log('WebSocket closed');
-                            term.destroy();
-                        };
-                        sock.onerror = function (err) {
-                            console.error(err);
                         };
                     };
                 });

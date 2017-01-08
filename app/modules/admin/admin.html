@@ -21,4 +21,17 @@
       </tr>
     </table>
   </div>
+
+  <button class="btn btn-xs btn-primary" type="button" ng-click="getLogs()">Get Logs</button>
+  <div class="col-md-12">
+    <table class="table">
+      <tr ng-repeat="log in logs">
+        <td> {{log.UserId}}</td>
+        <td> {{log.UserIp}}</td>
+        <td> {{log.Date}}</td>
+        <td> {{log.Message}}</td>
+      </tr>
+    </table>
+
+  </div>
 </div>

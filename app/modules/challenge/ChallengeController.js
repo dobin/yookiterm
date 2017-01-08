@@ -121,6 +121,7 @@ angular.module('myApp.challenge', ['ngRoute', 'ngSanitize', 'hljs'])
 
                 ContainerServices.getWebsocketTerminal($scope.terminals[idx].term, challenge.ContainerHostAlias, challenge.ContainerBaseName, cols, rows);
 
+
                 $scope.terminals[idx].term.on('destroy', function () {
                     console.log("Terminal Destroy");
                 });
@@ -144,7 +145,6 @@ angular.module('myApp.challenge', ['ngRoute', 'ngSanitize', 'hljs'])
                 BootstrapDialog.alert('Error, the yookiterm-LXD server is down. Cannot create terminal.');
                 spinnerService.hide('booksSpinner');
                 $scope.showAddTerminalButton = true;
-                $scope.terminals.pop();
                 terminalCount--;
             }).finally(function () {
                 $scope.terminals[idx].term.fit();

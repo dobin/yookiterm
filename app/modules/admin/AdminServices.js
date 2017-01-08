@@ -5,7 +5,7 @@ angular.module('myApp.admin')
       function ($http, $q, $timeout, SettingServices) {
           var obj = {};
 
-					return obj;
+          return obj;
       }
 	])
 ;
