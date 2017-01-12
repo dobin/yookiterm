@@ -27,7 +27,7 @@ function($locationProvider, $routeProvider, $httpProvider, hljsServiceProvider) 
   // Lets cache all the things
   $httpProvider.defaults.cache = true;
 
-  $routeProvider.otherwise({redirectTo: '/staticpages/index'});
+  $routeProvider.otherwise({redirectTo: '/index'});
 }])
 
 
