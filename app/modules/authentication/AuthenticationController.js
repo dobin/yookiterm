@@ -22,6 +22,10 @@ angular.module('myApp.authentication', ['ngRoute'])
             return false;
         }
 
+        $scope.loginHl = function () {
+            $window.location.href = "https://www.hacking-lab.com/ssoservice?serviceID=5";
+        }
+
         $scope.login = function () {
             $scope.loading = true;
             AuthenticationServices.login($scope.username, $scope.password).then(function (data) {
