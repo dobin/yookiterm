@@ -5,6 +5,7 @@ angular.module('myApp', [
   'hljs',
   'angularSpinners',
   'ui.bootstrap',
+  'ngCookies',
   'myApp.challenge',
   'myApp.container',
   'myApp.setting',
@@ -35,8 +36,16 @@ function($locationProvider, $routeProvider, $httpProvider, hljsServiceProvider) 
 })
 
 
-.controller('menuCtrl', function($scope, AuthenticationServices) {
+.controller('menuCtrl', function($scope, $cookies, AuthenticationServices) {
   $scope.isAuthenticated = false;
+
+  // For HL SSO auth
+  var t = $cookies.get('token');
+  if (t) {
+    AuthenticationServices.saveToken(t);
+    $cookies.remove('token');
+  }
+
 
   if (AuthenticationServices.isAuthenticated()) {
     $scope.isAuthenticated = true;
@@ -46,5 +55,6 @@ function($locationProvider, $routeProvider, $httpProvider, hljsServiceProvider) 
     $scope.isAdmin = token.admin;
   }
 })
+
 
 ;
