@@ -85,6 +85,8 @@ angular.module('myApp.container', ['ngRoute'])
                 var cols = initialGeometry.cols;
                 var rows = initialGeometry.rows;
 
+                console.log("X1");
+
                 ContainerServices.getWebsocketTerminal($scope.terminal.term, containerHostAlias, containerBaseName, cols, rows);
                 $scope.terminal.term.fit();
 
@@ -107,9 +109,13 @@ angular.module('myApp.container', ['ngRoute'])
 
                      fetch(url, {method: 'POST'});*/
                 });
+            }, function (error) {
+                BootstrapDialog.alert('Error, the yookiterm-LXD server is down. Cannot create terminal.');
             }).finally(function () {
                 //$scope.terminal.term.fit();
                 //$scope.showAddTerminalButton = true;
+            }).catch(function (data) {
+                console.log("Error");
             })
         }
         $scope.start();
@@ -141,6 +147,8 @@ angular.module('myApp.container', ['ngRoute'])
                         $scope.containers[n].ContainerStatus = data.data.status;
                     }
                 }
+            }, function (error) {
+                BootstrapDialog.alert('Error, the yookiterm-LXD server is down. Cannot create terminal.');
             });
         };
 

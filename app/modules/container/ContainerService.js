@@ -50,7 +50,7 @@ angular.module('myApp.container')
                                 }
                                 return resp.data;
                             }, function (bla) {
-                                console.log("BLA");
+                                console.log("Could not reach server: " + url);
                             });
                         });
 
