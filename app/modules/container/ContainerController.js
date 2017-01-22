@@ -47,50 +47,72 @@ angular.module('myApp.container', ['ngRoute'])
             var containerHostname = data.Hostname;
         });
 
-        var t = {
-            height: 25,
-            width: 80,
-            id: null,
-            term: null,
-        };
 
-        $scope.terminal = t;
         $scope.showAddTerminalButton = false;
 
-        ContainerServices.startContainerIfNecessary(containerHostAlias, containerBaseName).then(function (data) {
-            $scope.terminal.term = ContainerServices.getTerminal(t.height);
-            $scope.terminal.term.open(document.getElementById('console'));
-            var initialGeometry = $scope.terminal.term.proposeGeometry(),
-                cols = initialGeometry.cols,
-                rows = initialGeometry.rows;
-            $scope.terminal.width = 80;
+        var defaultHeight = 25;
 
-            ContainerServices.getWebsocketTerminal($scope.terminal.term, containerHostAlias, containerBaseName, cols, rows);
+        $scope.incSize = function() {
+            document.getElementById("console").style.fontSize = "xx-large";
+            defaultHeight = 15;
+            $scope.start();
+        }
 
-            $scope.terminal.term.on('destroy', function () {
-                console.log("DDDDDDDDDDDD");
-            });
+        $scope.decSize = function() {
+            document.getElementById("console").style.fontSize = "14px";
+            defaultHeight = 35;
+            $scope.start();
+        }
 
-            $scope.terminal.term.on('resize', function (size) {
-                //console.log("Resize: C: " + size.cols + " R: " + size.rows);
+        $scope.start = function() {
+            if ($scope.terminal) {
+                $scope.terminal.term.destroy();
+            }
 
-                var cols = size.cols;
-                var rows = size.rows;
+            var t = {
+                height: defaultHeight,
+                width: 80,
+                id: null,
+                term: null,
+            };
 
-                /*  if (!pid) {
-                 return;
-                 }
-                 var cols = size.cols,
-                 rows = size.rows,
-                 url = '/terminals/' + pid + '/size?cols=' + cols + '&rows=' + rows;
+            $scope.terminal = t;
 
-                 fetch(url, {method: 'POST'});*/
-            });
-        }).finally(function () {
-            //$scope.terminal.term.fit();
-            //$scope.showAddTerminalButton = true;
-        })
+            ContainerServices.startContainerIfNecessary(containerHostAlias, containerBaseName).then(function (data) {
+                $scope.terminal.term = ContainerServices.getTerminal(t.height);
+                $scope.terminal.term.open(document.getElementById('console'));
+                var initialGeometry = $scope.terminal.term.proposeGeometry();
+                var cols = initialGeometry.cols;
+                var rows = initialGeometry.rows;
 
+                ContainerServices.getWebsocketTerminal($scope.terminal.term, containerHostAlias, containerBaseName, cols, rows);
+                $scope.terminal.term.fit();
+
+                $scope.terminal.term.on('destroy', function () {
+                    console.log("DDDDDDDDDDDD");
+                });
+
+                $scope.terminal.term.on('resize', function (size) {
+                    //console.log("Resize: C: " + size.cols + " R: " + size.rows);
+
+                    var cols = size.cols;
+                    var rows = size.rows;
+
+                    /*  if (!pid) {
+                     return;
+                     }
+                     var cols = size.cols,
+                     rows = size.rows,
+                     url = '/terminals/' + pid + '/size?cols=' + cols + '&rows=' + rows;
+
+                     fetch(url, {method: 'POST'});*/
+                });
+            }).finally(function () {
+                //$scope.terminal.term.fit();
+                //$scope.showAddTerminalButton = true;
+            })
+        }
+        $scope.start();
 
     })
 

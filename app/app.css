@@ -1,8 +1,5 @@
 /* app css stylesheet */
 
-.myTerminal {
-  background-color: #300a24;
-}
 
 .menu {
   list-style: none;
@@ -13,6 +10,14 @@
   background-color: #133801;
   color: white;
   margin: 0px;
+}
+
+.terminalflex {
+    background-color: red;
+    /*font-size: 40px;*/
+    font-color: blue;
+    color: blue;
+    font-size: xx-large;
 }
 
 .ta {
@@ -64,9 +69,6 @@
   padding-left: 2px;
 }
 
-#terminal {
-  /*border-bottom: 1px solid black;*/
-}
 
 .horizontal-line {
   border: 1px solid white;
