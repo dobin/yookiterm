@@ -27,7 +27,14 @@ function($locationProvider, $routeProvider, $httpProvider, hljsServiceProvider) 
   // Lets cache all the things
   $httpProvider.defaults.cache = true;
 
+  // Intercept some default responses
+  $httpProvider.interceptors.push('responseObserver');
+
+  // Default route
   $routeProvider.otherwise({redirectTo: '/index'});
+
+  // Fix url change of AngularJS
+    $locationProvider.hashPrefix('');
 }])
 
 
@@ -56,5 +63,17 @@ function($locationProvider, $routeProvider, $httpProvider, hljsServiceProvider) 
   }
 })
 
+    .factory('responseObserver', function responseObserver($q, $window) {
+        return {
+            'responseError': function(errorResponse) {
+                switch (errorResponse.status) {
+                    case 401:
+                        $window.location = '#/authentication/login';
+                        break;
+                }
+                return $q.reject(errorResponse);
+            }
+        };
+    });
 
 ;
