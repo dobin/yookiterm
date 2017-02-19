@@ -63,7 +63,7 @@
             </div>
 
             <div class="row" ng-repeat="terminal in terminals">
-                <div class="col-md-12" class="terminal">
+                <div class="col-md-12">
                     <div id="{{'console' + terminal.id}}"></div>
                 </div>
                 <div class="col-md-12" id="terminal" ng-show="terminal.show">
@@ -83,12 +83,6 @@
 
 
         <div class="col-md-6" id="right">
-            <div class="row" id="challenge-menu">
-                &nbsp;<a ng-click="closeTextTab()">Close this tab</a>
-                |
-                <a ng-click="flipTabs()">Flip tab</a>
-            </div>
-
             <div class="row" id="challenge-right">
                 <div class="col-md-12">
                     <div mymarkdown ng-bind-html="challenge.inputHtml" class="preview"></div>
