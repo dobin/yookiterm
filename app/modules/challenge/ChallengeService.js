@@ -8,7 +8,7 @@ angular.module('myApp.challenge')
             obj.getChallenge = function (challengeId) {
                 return $http.get(SettingServices.getSrvApiUrl() + "/challenge/" + challengeId).then(function (data) {
                     var converter = new showdown.Converter();
-                    data.inputHtml = converter.makeHtml(data.data.Text);
+                    data.data.inputHtml = converter.makeHtml(data.data.Text);
                     return data;
                 });
             };

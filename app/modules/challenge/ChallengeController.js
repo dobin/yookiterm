@@ -38,7 +38,7 @@ angular.module('myApp.challenge', ['ngRoute', 'ngSanitize', 'hljs'])
                                                spinnerService, ContainerServices, AuthenticationServices, challenge) {
         "ngInject";
 
-        challenge = challenge;
+        challenge = challenge.data;
         $scope.challenge = challenge;
         $scope.showAddTerminalButton = true;
         $scope.isAdmin = AuthenticationServices.isAdmin();
