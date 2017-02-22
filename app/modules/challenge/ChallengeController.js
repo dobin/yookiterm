@@ -72,12 +72,13 @@ angular.module('myApp.challenge', ['ngRoute', 'ngSanitize', 'hljs'])
             terminal.term.resize(terminal.width, terminal.height);
         };
         $scope.decSize = function (terminal) {
+            console.log(terminal);
             terminal.height--;
             terminal.term.resize(terminal.width, terminal.height);
         };
 
         $scope.reload = function (terminal) {
-            $scope.terminals[terminal.id - 1].term.destroy();
+            terminal.term.destroy();
             $scope.getTerminal(terminal);
         };
 
@@ -117,6 +118,7 @@ angular.module('myApp.challenge', ['ngRoute', 'ngSanitize', 'hljs'])
                     cols = initialGeometry.cols,
                     rows = initialGeometry.rows;
                 $scope.terminals[idx].width = cols;
+                $scope.terminals[idx].height = t.height;
                 $scope.terminals[idx].show = true;
 
                 ContainerServices.getWebsocketTerminal($scope.terminals[idx].term, challenge.ContainerHostAlias, challenge.ContainerBaseName, cols, rows);
