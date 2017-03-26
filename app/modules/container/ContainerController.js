@@ -47,6 +47,11 @@ angular.module('myApp.container', ['ngRoute'])
             var containerHostname = data.Hostname;
         });
 
+        $scope.showContainerInfo = function () {
+            ContainerServices.getContainerInfo(containerBaseName, containerHostAlias).then(function (data) {
+                $scope.containerInfo = data.data;
+            });
+        };
 
         $scope.showAddTerminalButton = false;
 

@@ -50,11 +50,10 @@ angular.module('myApp.challenge', ['ngRoute', 'ngSanitize', 'hljs'])
         var terminalCount = 0;
 
         $scope.showContainerInfo = function () {
-            ContainerServices.getContainerInfo(containerBaseName, containerHostAlias).then(function (data) {
+            ContainerServices.getContainerInfo(challenge.ContainerBaseName, challenge.ContainerHostAlias).then(function (data) {
                 $scope.containerInfo = data.data;
             });
         };
-
 
         $scope.closeTextTab = function () {
             console.log("Close");
