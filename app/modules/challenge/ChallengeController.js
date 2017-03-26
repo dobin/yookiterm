@@ -98,6 +98,7 @@ angular.module('myApp.challenge', ['ngRoute', 'ngSanitize', 'hljs'])
             var idx;
             if (origTerminal) {
                 idx = origTerminal.id;
+                t.height = origTerminal.height;
             } else {
                 t.id = terminalCount;
                 idx = terminalCount;
