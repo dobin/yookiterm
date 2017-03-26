@@ -1,3 +1,29 @@
+<script type="text/ng-template" id="BareContainerConsolePopover.html">
+
+    <div ng-show="containerInfo.isStarted">
+        <div>{{dynamicPopover.content}}</div>
+        <div class="form-group">
+            <label>Host: </label> container.exploit.courses
+        </div>
+        <div class="form-group">
+            <label>Port: </label> {{containerInfo.sshPort}}
+        </div>
+        <div class="form-group">
+            <label>CMD: </label> ssh -l root -p {{containerInfo.sshPort}} container.exploit.courses
+        </div>
+        <div class="form-group">
+            <label>Expires: </label> {{containerInfo.expiry * 1000 | date:'yyyy-MM-dd HH:mm:ss' }}
+        </div>
+        <div class="form-group">
+            <label> Hard Epiry Date: </label> {{containerInfo.expiryHard * 1000 | date:'yyyy-MM-dd HH:mm:ss' }}
+        </div>
+    </div>
+
+    <div ng-show="! containerInfo.isStarted">
+        Container is not yet started.
+    </div>
+
+</script>
 
     <div class="row" id="challenge-menu">
         <div class="col-md-7">
@@ -17,11 +43,6 @@
 
         <div class="col-md-4">
             <div class="text-right">
-                ASLR:
-                <i ng-if="container.ContainerHost.Aslr" class="glyphicon glyphicon-ok"></i>
-                <i ng-if="! container.ContainerHost.Aslr" class="glyphicon glyphicon-remove"></i>
-                Arch: {{challenge.ContainerArch}}
-
                 <button uib-popover-template="'myPopoverTemplate.html'" ng-click="showContainerInfo()"
                         type="button" class="btn btn-primary btn-xs" popover-placement="bottom-right">
                     Info
