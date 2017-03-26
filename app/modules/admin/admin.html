@@ -28,7 +28,7 @@
       <tr ng-repeat="log in logs">
         <td> {{log.UserId}}</td>
         <td> {{log.UserIp}}</td>
-        <td> {{log.Date}}</td>
+        <td> {{log.Date * 1000 | date:'yyyy-MM-dd HH:mm:ss'}}</td>
         <td> {{log.Message}}</td>
       </tr>
     </table>
