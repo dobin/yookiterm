@@ -1,19 +1,26 @@
 <script type="text/ng-template" id="myPopoverTemplate.html">
-    <div>{{dynamicPopover.content}}</div>
-    <div class="form-group">
-        <label>Host: </label> container.exploit.courses
+
+    <div ng-show="containerInfo.isStarted">
+        <div>{{dynamicPopover.content}}</div>
+        <div class="form-group">
+            <label>Host: </label> container.exploit.courses
+        </div>
+        <div class="form-group">
+            <label>Port: </label> {{containerInfo.sshPort}}
+        </div>
+        <div class="form-group">
+            <label>CMD: </label> ssh -l root -p {{containerInfo.sshPort}} container.exploit.courses
+        </div>
+        <div class="form-group">
+            <label>Expires: </label> {{containerInfo.expiry * 1000 | date:'yyyy-MM-dd HH:mm:ss' }}
+        </div>
+        <div class="form-group">
+            <label> Hard Epiry Date: </label> {{containerInfo.expiryHard * 1000 | date:'yyyy-MM-dd HH:mm:ss' }}
+        </div>
     </div>
-    <div class="form-group">
-        <label>Port: </label> {{containerInfo.sshPort}}
-    </div>
-    <div class="form-group">
-        <label>CMD: </label> ssh -l root -p {{containerInfo.sshPort}} container.exploit.courses
-    </div>
-    <div class="form-group">
-        <label>Expires: </label> {{containerInfo.expiry * 1000 | date:'yyyy-MM-dd HH:mm:ss' }}
-    </div>
-    <div class="form-group">
-        <label> Hard Epiry Date: </label> {{containerInfo.expiryHard * 1000 | date:'yyyy-MM-dd HH:mm:ss' }}
+
+    <div ng-show="! containerInfo.isStarted">
+        Container is not yet started.
     </div>
 
     <hr>
