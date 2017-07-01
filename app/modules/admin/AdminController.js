@@ -29,10 +29,30 @@ angular.module('myApp.admin', ['ngRoute'])
                         logs.push.apply(logs, data[n].data.logs)
                     }
                 }
-
                 $scope.logs = logs;
             });
         };
+
+        $scope.getStats = function () {
+            ContainerServices.getStats().then(function (data) {
+                var allStats = [];
+
+                for (var n = 0; n < data.length; n++) {
+                    if (data[n] != null) {
+                        //allStats.push.apply(allStats, data[n].data)
+                        allStats.push(data[n].data);
+
+
+                        //stats[data[n].data.server] = data[n].data.stats;
+                        //console.log("A: " + JSON.stringify(data[n].data.stats));
+                    }
+                }
+
+                $scope.stats = allStats;
+                console.log("B: " + JSON.stringify(allStats));
+            });
+        };
+
 
         $scope.adminCmd = function (cmd) {
             ContainerServices.adminCmd(cmd).then(function (data) {

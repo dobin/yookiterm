@@ -22,6 +22,17 @@
     </table>
   </div>
 
+  <button class="btn btn-xs btn-primary" type="button" ng-click="getStats()">Get Stats</button>
+  <div class="col-md-4">
+    <table class="table" ng-repeat="stat in stats">
+      <tr ng-repeat="user in stat.stats">
+        <td> {{stat.server}}</td>
+        <td> {{user.Username}}</td>
+        <td> {{user.Logincount}}</td>
+      </tr>
+    </table>
+
+
   <button class="btn btn-xs btn-primary" type="button" ng-click="getLogs()">Get Logs</button>
   <div class="col-md-12">
     <table class="table">

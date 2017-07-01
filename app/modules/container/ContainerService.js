@@ -112,6 +112,7 @@ angular.module('myApp.container')
                 });
             }
 
+
             obj.getLogs = function (cmd) {
                 return obj.getContainerHostList().then(function (data) {
                     var pubContainerHosts = data.data;
@@ -126,6 +127,21 @@ angular.module('myApp.container')
                 });
             }
 
+
+            obj.getStats = function (cmd) {
+                return obj.getContainerHostList().then(function (data) {
+                    var pubContainerHosts = data.data;
+
+                    var promises = pubContainerHosts.map(function (containerHost) {
+                        var url = "//" + containerHost.Hostname + "/1.0/admin/stats";
+                        return $http.get(url).catch(function () {
+                            console.log("Err");
+                        });
+                    });
+
+                    return $q.all(promises);
+                });
+            }
 
 
             obj.getHostnameForAlias = function (containerHostAlias) {
@@ -169,6 +185,7 @@ angular.module('myApp.container')
                     });
                 })
             }
+
 
             // Public
             obj.getTerminal = function (initialTermHeight) {
