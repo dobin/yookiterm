@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Yookiterm</title>
+    <title>exploit.courses</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -24,15 +24,17 @@
 <div ng-controller="menuCtrl">
 
     <ul class="menu">
-        <li><a href="#/index">Index</a></li>
-        <li><a href="#/challenges">Challenges</a></li>
-        <li><a href="#/slides">Slides</a></li>
-        <li ng-if="isAuthenticated"><a href="#/container">Container</a></li>
+        <li><a href="#/index" ng-class="{active: isActive('index')}"><img src="/assets/logo.png"></img></a> &nbsp;
+        <a href="#/index" ng-class="{active: isActive('index')}"> Home</a></li>
+        <li><a href="#/challenges" ng-class="{active: isActive('challenges')}">Challenges</a></li>
+        <li><a href="#/slides" ng-class="{active: isActive('slides')}">Slides</a></li>
+        <li><a href="#/about" ng-class="{active: isActive('about')}">About</a></li>
+        <li ng-if="isAuthenticated"><a href="#/container" ng-class="{active: isActive('container')}">Container</a></li>
         <li ng-if="isAdmin">
             <a href="#/admin">Admin</a>
         </li>
         <li>
-            <a ng-if="! isAuthenticated" href="#/authentication/login">Login</a>
+            <a ng-if="! isAuthenticated" href="#/authentication/login" ng-class="{active: isActive('authentication')}">Login</a>
             <span ng-if="isAuthenticated" ng-bind="loggedinUser"></span>
         </li>
     </ul>

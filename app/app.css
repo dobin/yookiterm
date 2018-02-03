@@ -5,11 +5,17 @@
   list-style: none;
   border-bottom: 0.1em solid black;
   /*margin-bottom: 1em;*/
-  padding: 0 0 3px;
+  padding: 5px 5px 5px 5px;
   /*background-color: #f1f1f1;*/
   background-color: #133801;
   color: white;
   margin: 0px;
+}
+
+
+.active {
+    font-weight: bold;
+    text-decoration: none;
 }
 
 .terminalflex {
@@ -35,7 +41,7 @@
 }
 
 .menu:before {
-  content: "exploit.courses [";
+  content: " [";
 }
 
 .menu:after {

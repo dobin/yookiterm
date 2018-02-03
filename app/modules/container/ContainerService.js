@@ -174,6 +174,15 @@ angular.module('myApp.container')
             }
 
 
+            // Public
+            obj.restartContainer = function (containerHostAlias, containerBaseName) {
+                return obj.getHostnameForAlias(containerHostAlias).then(function (containerHost) {
+                    var url = "//" + containerHost.Hostname + "/1.0/container/" + containerBaseName + "/restart";
+                    return $http.get(url);
+                });
+            }
+
+
             obj.getContainerInfo = function (containerBaseName, containerHostAlias) {
                 return obj.getHostnameForAlias(containerHostAlias).then(function (containerHost) {
                     var url = "//" + containerHost.Hostname + "/1.0/container/" + containerBaseName;

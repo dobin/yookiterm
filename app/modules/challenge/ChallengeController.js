@@ -63,8 +63,8 @@ angular.module('myApp.challenge', ['ngRoute', 'ngSanitize', 'hljs'])
             console.log("Flip");
         };
 
-        $scope.stopContainer = function () {
-            ContainerServices.stopContainer($scope.challenge.ContainerHostAlias, $scope.challenge.ContainerBaseName);
+        $scope.restartContainer = function () {
+            ContainerServices.restartContainer($scope.challenge.ContainerHostAlias, $scope.challenge.ContainerBaseName);
         };
 
         $scope.incSize = function (terminal) {

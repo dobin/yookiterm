@@ -43,7 +43,7 @@ angular.module('myApp', [
 })
 
 
-.controller('menuCtrl', function ($scope, $cookies, AuthenticationServices) {
+.controller('menuCtrl', function ($scope, $location, $cookies, AuthenticationServices) {
     $scope.isAuthenticated = false;
 
     // For HL SSO auth
@@ -53,13 +53,19 @@ angular.module('myApp', [
         $cookies.remove('token');
     }
 
-
     if (AuthenticationServices.isAuthenticated()) {
         $scope.isAuthenticated = true;
 
         var token = AuthenticationServices.parseJwt(AuthenticationServices.getToken());
         $scope.loggedinUser = token.userId;
         $scope.isAdmin = token.admin;
+    }
+
+    // Highlight menu item stuff
+    $scope.isActive = function (path) {
+        console.log("PATH1: " + path);
+        console.log("PATH2: " + $location.path().substr(1, path.length));
+        return ($location.path().substr(1, path.length) === path);
     }
 })
 

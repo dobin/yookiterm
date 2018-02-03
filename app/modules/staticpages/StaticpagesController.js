@@ -10,6 +10,10 @@ angular.module('myApp.staticpages', ['ngRoute'])
         title: 'Slides',
         templateUrl: 'modules/staticpages/slides.html',
         controller: 'staticpagesIndexCtrl',
+    }).when('/about', {
+        title: 'About',
+        templateUrl: 'modules/staticpages/about.html',
+        controller: 'staticpagesIndexCtrl',
     })
     ;
 }])
@@ -18,7 +22,6 @@ angular.module('myApp.staticpages', ['ngRoute'])
 .controller('staticpagesIndexCtrl', function ($scope, $window, $routeParams, $filter, $location)
 {
   "ngInject";
-
 })
 
 ;
