@@ -57,14 +57,13 @@ angular.module('myApp', [
         $scope.isAuthenticated = true;
 
         var token = AuthenticationServices.parseJwt(AuthenticationServices.getToken());
-        $scope.loggedinUser = token.userId;
+        $scope.loggedinUser = token.userName;
+        $scope.loggedinUserId = token.userId;
         $scope.isAdmin = token.admin;
     }
 
     // Highlight menu item stuff
     $scope.isActive = function (path) {
-        console.log("PATH1: " + path);
-        console.log("PATH2: " + $location.path().substr(1, path.length));
         return ($location.path().substr(1, path.length) === path);
     }
 })
