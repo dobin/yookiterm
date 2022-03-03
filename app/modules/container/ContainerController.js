@@ -149,6 +149,7 @@ angular.module('myApp.container', ['ngRoute'])
                         $scope.containers[n].ContainerUsername = data.data.username;
                         $scope.containers[n].ContainerPassword = data.data.password;
                         $scope.containers[n].ContainerExpiry = data.data.expiry;
+                        $scope.containers[n].ContainerExpiryHard = data.data.expiryHard;
                         $scope.containers[n].ContainerStatus = data.data.status;
                     }
                 }
