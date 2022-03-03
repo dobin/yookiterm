@@ -33,10 +33,6 @@
         <li ng-if="isAdmin">
             <a href="#/admin">Admin</a>
         </li>
-        <li>
-            <a ng-if="! isAuthenticated" href="#/authentication/login" ng-class="{active: isActive('authentication')}">Login</a>
-            <span ng-if="isAuthenticated" ng-bind="loggedinUser"></span>
-        </li>
 
         <li ng-if="! isAuthenticated">
             <a href="#/authentication/login" ng-class="{active: isActive('authentication')}">Login</a>
