@@ -33,12 +33,13 @@
         <li ng-if="isAdmin">
             <a href="#/admin">Admin</a>
         </li>
-
+        
         <li ng-if="! isAuthenticated">
             <a href="#/authentication/login" ng-class="{active: isActive('authentication')}">Login</a>
         </li>
         <li ng-if="isAuthenticated">
-            {{ loggedInUser }} {{ loggedinUserId }}
+            <span ng-bind="loggedinUser"></span>
+            <span ng-bind="loggedinUserId"></span>
         </li>
 
     </ul>
