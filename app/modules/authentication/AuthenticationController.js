@@ -25,6 +25,9 @@ angular.module('myApp.authentication', ['ngRoute'])
         $scope.loginGoogle = function () {
             $window.location.href = "/1.0/auth/google";
         }
+        $scope.loginAzure = function () {
+            $window.location.href = "/1.0/auth/azureadv2";
+        }
 
         $scope.login = function () {
             $scope.loading = true;
