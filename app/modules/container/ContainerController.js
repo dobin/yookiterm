@@ -37,7 +37,7 @@ angular.module('myApp.container', ['ngRoute'])
     }])
 
     .controller('containerConsoleCtrl', function ($scope, $routeParams, $filter, $location, $route,
-                                                  ContainerServices) {
+                                                  ContainerServices, AuthenticationServices) {
         "ngInject";
 
         var containerHostAlias = $route.current.params.containerHostAlias;
@@ -84,35 +84,38 @@ angular.module('myApp.container', ['ngRoute'])
             $scope.terminal = t;
 
             ContainerServices.startContainerIfNecessary(containerHostAlias, containerBaseName).then(function (data) {
-                $scope.terminal.term = ContainerServices.getTerminal(t.height);
-                $scope.terminal.term.open(document.getElementById('console'));
-                var initialGeometry = $scope.terminal.term.proposeGeometry();
-                var cols = initialGeometry.cols;
-                var rows = initialGeometry.rows;
-
-                console.log("X1");
-
-                ContainerServices.getWebsocketTerminal($scope.terminal.term, containerHostAlias, containerBaseName, cols, rows);
-                $scope.terminal.term.fit();
-
-                $scope.terminal.term.on('destroy', function () {
-                    console.log("DDDDDDDDDDDD");
+                console.log("Creating Terminal");
+                var term = new Terminal({
+                    role: "client",
+                    parentId: "terminal-container",
                 });
+                term.open(document.getElementById('console'));
 
-                $scope.terminal.term.on('resize', function (size) {
-                    //console.log("Resize: C: " + size.cols + " R: " + size.rows);
+                ContainerServices.getHostnameForAlias(containerHostAlias).then(function (data) {
+                    //var containerHosts = data.data;
+                    //var containerHost = _.findWhere(containerHosts, { HostnameAlias: containerHostAlias})
+                    var containerHost = data;
 
-                    var cols = size.cols;
-                    var rows = size.rows;
+                    var ws;
+                    if (location.protocol === 'https:') {
+                        ws = "wss://";
+                    } else {
+                        ws = "ws://";
+                    }
 
-                    /*  if (!pid) {
-                     return;
-                     }
-                     var cols = size.cols,
-                     rows = size.rows,
-                     url = '/terminals/' + pid + '/size?cols=' + cols + '&rows=' + rows;
-
-                     fetch(url, {method: 'POST'});*/
+                    var width = 80;
+                    var height = 25;
+                    var wssurl = ws
+                        + containerHost.Hostname
+                        + "/1.0/container/"
+                        + containerBaseName
+                        + "/console"
+                        + "?width=" + width
+                        + "&height=" + height
+                        + "&token=" + AuthenticationServices.getToken();
+                    const socket = new WebSocket(wssurl);
+                    const attachAddon = new AttachAddon.AttachAddon(socket);
+                    term.loadAddon(attachAddon);
                 });
             }, function (error) {
                 BootstrapDialog.alert('Error, the yookiterm-LXD server is down. Cannot create terminal.');
@@ -120,7 +123,7 @@ angular.module('myApp.container', ['ngRoute'])
                 //$scope.terminal.term.fit();
                 //$scope.showAddTerminalButton = true;
             }).catch(function (data) {
-                console.log("Error");
+                console.log("Error: ", data);
             })
         }
         $scope.start();
