@@ -6,13 +6,7 @@ angular.module('myApp.setting')
             var obj = {};
 
             obj.getMyCfg = function() {
-                var srvUrl;
-                if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
-                  srvUrl = 'localhost:8090';
-                } else {
-                  srvUrl = 'exploit.courses';
-                }
-
+                var srvUrl = location.hostname;
                 var cfg = {
                   srvurl: srvUrl,
                 }
