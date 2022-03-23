@@ -106,43 +106,42 @@ angular.module('myApp.challenge', ['ngRoute', 'ngSanitize', 'hljs'])
                 $scope.showAddTerminalButton = false;
             }
 
+
+
             ContainerServices.startContainerIfNecessary(challenge.ContainerHostAlias, challenge.ContainerBaseName).then(function (data) {
-                $scope.terminals[idx].term = ContainerServices.getTerminal(t.height);
-
-                var dd = document.getElementById('console' + (idx));
-                if (dd == null) {
-                    console.log("Error, could not find id");
-                }
-
-                $scope.terminals[idx].term.open(document.getElementById('console' + (idx)));
-                var initialGeometry = $scope.terminals[idx].term.proposeGeometry(),
-                    cols = initialGeometry.cols,
-                    rows = initialGeometry.rows;
-                $scope.terminals[idx].width = cols;
-                $scope.terminals[idx].height = t.height;
-                $scope.terminals[idx].show = true;
-
-                ContainerServices.getWebsocketTerminal($scope.terminals[idx].term, challenge.ContainerHostAlias, challenge.ContainerBaseName, cols, rows);
-
-
-                $scope.terminals[idx].term.on('destroy', function () {
-                    console.log("Terminal Destroy");
+                console.log("Creating Terminal");
+                var term = new Terminal({
+                    role: "client",
+                    parentId: "terminal-container",
                 });
+                term.open(document.getElementById('console'+ (idx)));
+                $scope.terminals[idx].term = term;
 
-                $scope.terminals[idx].term.on('resize', function (size) {
-                    //console.log("Resize: C: " + size.cols + " R: " + size.rows);
+                ContainerServices.getHostnameForAlias(challenge.ContainerHostAlias).then(function (data) {
+                    //var containerHosts = data.data;
+                    //var containerHost = _.findWhere(containerHosts, { HostnameAlias: containerHostAlias})
+                    var containerHost = data;
 
-                    var cols = size.cols;
-                    var rows = size.rows;
+                    var ws;
+                    if (location.protocol === 'https:') {
+                        ws = "wss://";
+                    } else {
+                        ws = "ws://";
+                    }
 
-                    /*  if (!pid) {
-                     return;
-                     }
-                     var cols = size.cols,
-                     rows = size.rows,
-                     url = '/terminals/' + pid + '/size?cols=' + cols + '&rows=' + rows;
-
-                     fetch(url, {method: 'POST'});*/
+                    var width = 80;
+                    var height = 25;
+                    var wssurl = ws
+                        + containerHost.Hostname
+                        + "/1.0/container/"
+                        + challenge.ContainerBaseName
+                        + "/console"
+                        + "?width=" + width
+                        + "&height=" + height
+                        + "&token=" + AuthenticationServices.getToken();
+                    const socket = new WebSocket(wssurl);
+                    const attachAddon = new AttachAddon.AttachAddon(socket);
+                    term.loadAddon(attachAddon);
                 });
             }, function (error) {
                 BootstrapDialog.alert('Error, the yookiterm-LXD server is down. Cannot create terminal.');
@@ -150,11 +149,11 @@ angular.module('myApp.challenge', ['ngRoute', 'ngSanitize', 'hljs'])
                 $scope.showAddTerminalButton = true;
                 terminalCount--;
             }).finally(function () {
-                $scope.terminals[idx].term.fit();
+                //$scope.terminals[idx].term.fit();
                 spinnerService.hide('booksSpinner');
                 $scope.showAddTerminalButton = true;
             }).catch(function (data) {
-                console.log("ERR2");
+                console.log("ERR2", data);
             });
         }
     })
