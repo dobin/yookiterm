@@ -114,9 +114,12 @@ angular.module('myApp.challenge', ['ngRoute', 'ngSanitize', 'hljs'])
                     role: "client",
                     parentId: "terminal-container",
                 });
+                var f = new FitAddon.FitAddon();
+                term.loadAddon(f);
                 term.open(document.getElementById('console'+ (idx)));
                 $scope.terminals[idx].term = term;
-
+                f.fit()
+                
                 ContainerServices.getHostnameForAlias(challenge.ContainerHostAlias).then(function (data) {
                     //var containerHosts = data.data;
                     //var containerHost = _.findWhere(containerHosts, { HostnameAlias: containerHostAlias})

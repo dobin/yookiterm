@@ -89,8 +89,10 @@ angular.module('myApp.container', ['ngRoute'])
                     role: "client",
                     parentId: "terminal-container",
                 });
+                var f = new FitAddon.FitAddon();
+                term.loadAddon(f);
                 term.open(document.getElementById('console'));
-                fitAddon.fit()
+                f.fit()
 
                 ContainerServices.getHostnameForAlias(containerHostAlias).then(function (data) {
                     //var containerHosts = data.data;
