@@ -6,7 +6,7 @@
   "repository": "https://github.com/dobin/yookiterm",
   "devDependencies": {
     "bower": "^1.7.7",
-    "grunt": "^1.0.1",
+    "grunt": "^1.5.2",
     "grunt-contrib-concat": "^1.0.1",
     "grunt-contrib-uglify": "^2.0.0",
     "grunt-ng-annotate": "^2.0.2",
