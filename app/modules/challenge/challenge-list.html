@@ -1,6 +1,7 @@
 <table class="table">
 	<thead>
 		<th>ID</th>
+		<th>Chapter</th>
 		<th>Title</th>
 		<th>Description</th>
 		<th>Arch</th>
@@ -10,6 +11,9 @@
 	<tr ng-repeat="challenge in challenges">
 		<td>
 			{{challenge.Id}}
+		</td>
+		<td>
+			{{challenge.Chapter}}
 		</td>
 		<td>
 			<a ng-href="#/challenge/{{challenge.Id}}">
